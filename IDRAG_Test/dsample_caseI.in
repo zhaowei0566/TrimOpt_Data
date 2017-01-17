@@ -1,0 +1,31 @@
+idrag input file
+winglet design
+0               input mode
+1               write flag
+1               symmetry flag
+1.0             cl_design
+0               cm_flag
+0               cm_design
+0.03            x cg position
+0.25            center of pressure for airfoil sections
+0.2             reference area
+0.2             reference chord
+3               number of panels
+0   0   0       x,y,z for 4 corners of panel 1
+0   0.5 0
+0.2 0.5 0
+0.2 0   0
+25              number of vortices for panel 1
+0               vortex spacing for panel 1
+0   0.5 0       x,y,z for 4 corners of panel 2
+0   0.5 0.1
+0.2 0.5 0.1
+0.2 0.5 0
+5               number of vortices for panel 2
+0               vortex spacing for panel 2
+1   0   0.1     x,y,z for 4 corners of panel 3
+1   0.2 0.1
+1.1 0.2 0.1
+1.1 0   0.1
+10              number of vortices for panel 3
+0               vortex spacing for panel 3

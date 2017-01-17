@@ -1,0 +1,112 @@
+  **************************************************
+    VT Aerospace Aircraft Design Software Series
+  **************************************************
+
+                   Program idrag
+  This program calculates the distribution of the
+  normal force coefficient, induced drag, and span
+  efficiency factor for nonplanar wings composed of
+  multiple panels.  It is based on the paper entitled
+  "Numerical Method to Calculate the Induced Drag or
+  Optimum Loading for Arbitrary Non-planar Aircraft" 
+  by James Blackwell, Jr., from NASA SP-405, Vortex-
+  Lattice Utilization
+
+  Written by Joel Grasmeyer.
+  This program modified by
+    - Andy Ko, 12/14/2000
+    - L.T. Leifsson, Febuary 2004.
+
+  The Department of Aerospace and Ocean Engineering,
+  Virginia Tech, Blacksburg, VA 24061
+  http://www.aoe.vt.edu, email: whmason@vt.edu
+
+  **************************************************
+
+idrag output file
+winglet design                                                          
+    0    = input mode
+    1    = write flag
+    1    = symmetry flag
+    1.00 = design lift coefficient
+    1    = moment coefficient flag
+    0.00 = design moment coefficient
+    0.03 = x cg position
+    0.25 = center of pressure for airfoil sections
+    0.20 = reference area
+    0.20 = reference chord
+    3    = number of panels
+ 
+    x        y        z    for panel 1
+    0.00     0.00     0.00
+    0.00     0.50     0.00
+    0.20     0.50     0.00
+    0.20     0.00     0.00
+   25    = number of vortices
+    0    = vortex spacing flag
+ 
+    x        y        z    for panel 2
+    0.00     0.50     0.00
+    0.00     0.50     0.10
+    0.20     0.50     0.10
+    0.20     0.50     0.00
+    5    = number of vortices
+    0    = vortex spacing flag
+ 
+    x        y        z    for panel 3
+    1.00     0.00     0.10
+    1.00     0.20     0.10
+    1.10     0.20     0.10
+    1.10     0.00     0.10
+   10    = number of vortices
+    0    = vortex spacing flag
+ 
+    i   x        y        z        load     cn
+    1   0.0500   0.0100   0.0000   1.2077   1.2077
+    2   0.0500   0.0300   0.0000   1.2058   1.2058
+    3   0.0500   0.0500   0.0000   1.2020   1.2020
+    4   0.0500   0.0700   0.0000   1.1963   1.1963
+    5   0.0500   0.0900   0.0000   1.1888   1.1888
+    6   0.0500   0.1100   0.0000   1.1793   1.1793
+    7   0.0500   0.1300   0.0000   1.1679   1.1679
+    8   0.0500   0.1500   0.0000   1.1548   1.1548
+    9   0.0500   0.1700   0.0000   1.1398   1.1398
+   10   0.0500   0.1900   0.0000   1.1233   1.1233
+   11   0.0500   0.2100   0.0000   1.1053   1.1053
+   12   0.0500   0.2300   0.0000   1.0858   1.0858
+   13   0.0500   0.2500   0.0000   1.0650   1.0650
+   14   0.0500   0.2700   0.0000   1.0429   1.0429
+   15   0.0500   0.2900   0.0000   1.0191   1.0191
+   16   0.0500   0.3100   0.0000   0.9938   0.9938
+   17   0.0500   0.3300   0.0000   0.9666   0.9666
+   18   0.0500   0.3500   0.0000   0.9375   0.9375
+   19   0.0500   0.3700   0.0000   0.9064   0.9064
+   20   0.0500   0.3900   0.0000   0.8731   0.8731
+   21   0.0500   0.4100   0.0000   0.8374   0.8374
+   22   0.0500   0.4300   0.0000   0.7992   0.7992
+   23   0.0500   0.4500   0.0000   0.7579   0.7579
+   24   0.0500   0.4700   0.0000   0.7122   0.7122
+   25   0.0500   0.4900   0.0000   0.6448   0.6448
+   26   0.0500   0.5000   0.0100   0.5089   0.5089
+   27   0.0500   0.5000   0.0300   0.4455   0.4455
+   28   0.0500   0.5000   0.0500   0.3714   0.3714
+   29   0.0500   0.5000   0.0700   0.2908   0.2908
+   30   0.0500   0.5000   0.0900   0.1904   0.1904
+   31   1.0250   0.0100   0.1000  -0.0655  -0.1309
+   32   1.0250   0.0300   0.1000  -0.0647  -0.1294
+   33   1.0250   0.0500   0.1000  -0.0631  -0.1263
+   34   1.0250   0.0700   0.1000  -0.0608  -0.1216
+   35   1.0250   0.0900   0.1000  -0.0576  -0.1152
+   36   1.0250   0.1100   0.1000  -0.0535  -0.1071
+   37   1.0250   0.1300   0.1000  -0.0485  -0.0969
+   38   1.0250   0.1500   0.1000  -0.0421  -0.0843
+   39   1.0250   0.1700   0.1000  -0.0341  -0.0682
+   40   1.0250   0.1900   0.1000  -0.0229  -0.0459
+ 
+    1.00000 = actual lift coefficient
+    0.00000 = actual moment coefficient
+    0.05212 = induced drag coefficient
+    1.22142 = span efficiency factor
+
+ Run completed successfully.
+

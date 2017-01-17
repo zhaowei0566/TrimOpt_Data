@@ -1,0 +1,1472 @@
+1
+ 
+ 
+ 
+ 
+                      Warning: This computer program is protected by copyright law and international treaties.       
+                  Unauthorized use, reproduction or distribution of this computer program, or any portion of it, may 
+                                          result in severe civil and criminal penalties.                             
+                         Copyright (C) 2013 MSC Software Corporation and its licensors. All rights reserved.         
+ 
+ 
+                                              * * * * * * * * * * * * * * * * * * * *
+                                              * * * * * * * * * * * * * * * * * * * *
+                                              * *                                 * *
+                                              * *           MSC Software          * *
+                                              * *               CORP              * *
+                                              * *                                 * *
+                                              * *      M S C   N a s t r a n      * *
+                                              * *                                 * *
+                                              * *                                 * *
+                                              * *                                 * *
+                                              * *     Version 2013.0.0-CL199358   * *
+                                              * *                                 * *
+                                              * *                                 * *
+                                              * *                                 * *
+                                              * *          MAY 30, 2013           * *
+                                              * *                                 * *
+                                              * *              Intel              * *
+                                              * *        MODEL 386/486/586        * *
+                                              * * Windows Server 2008 R2 6.1 7601 * *
+                                              * *        Compiled for 8664        * *
+                                              * *                                 * *
+                                              * * * * * * * * * * * * * * * * * * * *
+                                              * * * * * * * * * * * * * * * * * * * *
+1 News file -  (June 10, 2013):
+  
+               Welcome to MSC Nastran 2013
+  
+  
+   Details of the new capabilities can be found in the MSC Nastran 2013
+     Release Guide available online in the installation documentation
+     sub-directory.
+   Additional information can be found at the MSC Nastran Product Support page:
+  
+      http://simcompanion.mscsoftware.com
+  
+  
+   The support page provides links to these valuable information:
+      * A searchable Knowledge Base containing examples and answers to thousands
+        of frequently asked questions written by MSC Software subject-matter
+        experts.
+      * Peer-to-peer Discussion Forums enabling you to post questions for your
+        MSC Software products and receive answers from other users worldwide.
+      * A list of known issues with the product and any workarounds.
+      * Instructions on how to contact technical support
+      * A mechanism for sending us product feedback or enhancement requests.
+      * Hardware and software requirements.
+      * Examples and Tutorials
+      * and much more.
+  
+   For information on training, please visit our Training web site
+  
+      http://www.mscsoftware.com/Contents/Services/Training/
+  
+   MSC Nastran brings powerful new features and enhancements for engineering
+   solutions.
+  
+   The highlights for the MSC Nastran 2013 release include:
+  •   HPC
+     –   GPU Support for non-symmetric and complex systems encountered in
+           SOL 108, SOL 109, SOL 111 and SOL 112
+     –   Element Assembly Time has been Improved using Parallel Processing in
+           SOL 400
+     –   SOL 700 DMP Improvements for FSI applications
+     –   MSC Nastran now fully utilizes the memory for All Solutions Sequences
+           which reduces the amount of wall time.
+     -   New methods have been introduced to Control Pivoting strategies when
+           Factorizing the System of Equation, to provide a balance between
+           Performance and Accuracy
+  •   Acoustics
+     –   Poroelastic Materials which are Frequency Dependant can be included in
+           Interior Acoustic Simulation to model trim materials
+  •   Durability
+     –   Fatigue Simulations may be performed from within MSC Nastran for
+1          SOL 101, SOL 103, SOL 112 and SOL 200
+     -   There is a new User Guide fully describing this new capability
+  •   Optimization
+     –   Optimization may be performed using Design Life as either a Constraint
+         or an Objective Function.
+     –   Enhancements to Equivalent Radiated Power (ERP)
+  •   Linear Analysis
+     –   Enhancements to Transfer Path Analysis (TPA) to support inter-component
+           forces
+     -   The Definition of Loads in Dynamic Analysis has been Improved.
+  •   Aeroelasticity
+     –   Output enhancements with Monitor Points for SOL 146
+  •   Advanced Nonlinear (SOL 400)
+     –   Support for enforced relative displacement motion SPCD and SPCR
+     –   Export Adams MNF files from SOL 400 for nonlinear preload
+  •   Explicit Dynamics (SOL 700)
+     –   1D-3D Spherical Symmetry and 2D-3D Axial Symmetry Remap for Blast Loads
+     –   Support for Multiple Detonation points with varying ignition times
+     –   Empirical Blast Load Models
+  
+  
+1                                                                           OCTOBER  18, 2016  MSC Nastran  5/30/13   PAGE     1
+                                                                                                                                    
+0        N A S T R A N    F I L E    A N D    S Y S T E M    P A R A M E T E R    E C H O                                           
+0                                                                                                                                   
+                                                                                                                                    
+                                                                                                                                    
+     NASTRAN BUFFSIZE=8193 $(C:/MSC.SOFTWARE/MSC_NASTRAN/20130/CONF/NAST20130.RCF[2])
+     $ DEC/CMS REPLACEMENT HISTORY, ELEMENT HA144F.DAT                               
+     $ *2     6-JUL-1994 14:07:16 A_BOYADJIAN "68 PLUS/G/ CHANGE DBSDIR: TO  FOR INCL
+     $ *1     5-JUL-1994 16:51:56 A_BOYADJIAN "68 PLUS/G/ NEW FOR V68 AERO_SS BOOK"  
+     $ DEC/CMS REPLACEMENT HISTORY, ELEMENT HA144F.DAT                               
+1                                                                           OCTOBER  18, 2016  MSC Nastran  5/30/13   PAGE     2
+                                                                                                                                    
+0        N A S T R A N    E X E C U T I V E    C O N T R O L    E C H O                                                             
+0                                                                                                                                   
+                                                                                                                                    
+                                                                                                                                    
+     ID MSC, HA144F $ E_JOHNSON V68  5-JUL-1994                                              
+     $ID MSC, HA144F                                                                         
+     $$$$$$  USERS GUIDE FOR AEROELASTIC ANALYSIS EXAMPLE HA144F       $$$$$$                
+     $                                                                      $                
+     $       MODEL DESCRIPTION        FULL SPAN 30 DEG FWD SWEPT WING       $                
+     $                                WITH AILERON, CANARD AND AFT SWEPT    $                
+     $                                VERTICAL FIN AND RUDDER.              $                
+     $                                BAR MODEL WITH DUMBBELL MASSES.       $                
+     $                                                                      $                
+     $       SOLUTION                 QUASI-STEADY AEROELASTIC ANALYSIS     $                
+     $                                USING DOUBLET-LATTICE METHOD          $                
+     $                                AERODYNAMICS AT MACH NO. 0.9.         $                
+     $                                                                      $                
+     $       OUTPUT                   PLOTS OF THE STICK MODEL AND AERO     $                
+     $                                GRID, LISTS OF RESTRAINED AND         $                
+     $                                UNRESTRAINED SYMMETRIC AND ANTI-      $                
+     $                                SYMMETRIC STABILITY DERIVATIVES,      $                
+     $                                AERODYNAMIC FORCES AND PRESSURES      $                
+     $                                PLUS STRESSES AND DEFLECTIONS FOR     $                
+     $                                LEVEL FLIGHT AND SEVERAL UNSYM-       $                
+     $                                METRICAL MANUEVERS.                   $                
+     $                                                                      $                
+     $                                                                      $                
+     $$$$$$$$                                                        $$$$$$$$                
+     TIME 10 $ CPU TIME IN MINUTES                                                           
+     SOL 144 $ STATIC AERO                                                                   
+     CEND                                                                                    
+1    EXAMPLE HA144F: FSW WITH FUSELAGE, 3 CONTROLS & 2 STOR HA144F          OCTOBER  18, 2016  MSC Nastran  5/30/13   PAGE     3
+      UNSYMMETRIC FLIGHT CONDITIONS, DOUBLET-LATTICE AERO                                                                           
+0     FULL-SPAN MODEL WITH DISPLACED CANARD                                                                                         
+0                                        C A S E    C O N T R O L    E C H O                                                        
+                 COMMAND                                                                                                            
+                 COUNT                                                                                                              
+                  1      TITLE = EXAMPLE HA144F: FSW WITH FUSELAGE, 3 CONTROLS & 2 STOR HA144F                   
+                  2      SUBTI = UNSYMMETRIC FLIGHT CONDITIONS, DOUBLET-LATTICE AERO                             
+                  3      LABEL = FULL-SPAN MODEL WITH DISPLACED CANARD                                           
+                  4        ECHO    = NONE                                                                        
+                  5        SPC     = 1   $ SYMMETRIC CONSTRAINTS                                                 
+                  6        MPC     = 10  $ CANARD/FUSELAGE STRUCTURAL CONNECTIONS                                
+                  7      $   DISP    = ALL $ PRINT ALL DISPLACEMENTS                                             
+                  8      $   STRESS  = ALL $ PRINT ALL STRESSES                                                  
+                  9      $   FORCE   = ALL $ PRINT ALL FORCES                                                    
+                 10      $   AEROF   = ALL $ PRINT ALL AERODYNAMIC FORCES                                        
+                 11      $   APRES   = ALL $ PRINT ALL AERODYNAMIC PRESSURES                                     
+                 12        LOAD    = 10                                                                          
+                 13      SUBCASE 1                                                                               
+                 14        TRIM = 1      $ HIGH SPEED LEVEL FLIGHT                                               
+                 15      SUBCASE 2                                                                               
+                 16        TRIM = 2                                                                              
+                 17      $ OUTPUT(PLOT)                                                                          
+                 18      $   PLOTTER = NASTRAN                                                                   
+                 19      $   SET 1 = ALL                                                                         
+                 20      $   FIND SCALE, ORIGIN 1,SET 1                                                          
+                 21      $   PLOT SET 1                                                                          
+                 22      $   PLOT STATIC DEFORMATION 0, ORIGIN 1, SET 1, OUTLINE                                 
+                 23      BEGIN BULK                                                                              
+1    EXAMPLE HA144F: FSW WITH FUSELAGE, 3 CONTROLS & 2 STOR HA144F          OCTOBER  18, 2016  MSC Nastran  5/30/13   PAGE     4
+      UNSYMMETRIC FLIGHT CONDITIONS, DOUBLET-LATTICE AERO                                                                           
+0     FULL-SPAN MODEL WITH DISPLACED CANARD                                                                                         
+                                        M O D E L   S U M M A R Y          BULK = 0
+                                   ENTRY NAME        NUMBER OF ENTRIES
+                                   ----------        -----------------
+                                       AEFACT                        5
+                                       AELINK                        2
+                                       AELIST                        5
+                                        AEROS                        1
+                                       AESTAT                       10
+                                       AESURF                        5
+                                       CAERO1                        9
+                                       CAERO2                        3
+                                         CBAR                       19
+                                        CONM2                       14
+                                       CORD2R                       14
+                                          DMI                        2
+                                         GRAV                        1
+                                         GRID                       32
+                                         MAT1                        1
+                                      MONCNCM                        1
+                                          MPC                       12
+                                        OMIT1                        1
+                                       PAERO1                        1
+                                       PAERO2                        2
+                                        PARAM                        2
+                                         PBAR                        2
+                                         RBAR                       10
+                                         SET1                       11
+                                         SPC1                        1
+                                      SPLINE2                       12
+                                       SUPORT                        1
+                                         TRIM                        2
+
+ ^^^     
+ ^^^ >>> IFP OPERATIONS COMPLETE <<< 
+ ^^^     
+1    EXAMPLE HA144F: FSW WITH FUSELAGE, 3 CONTROLS & 2 STOR HA144F          OCTOBER  18, 2016  MSC Nastran  5/30/13   PAGE     5
+      UNSYMMETRIC FLIGHT CONDITIONS, DOUBLET-LATTICE AERO                                                                           
+0                                                                                                                                   
+ *** USER INFORMATION MESSAGE 7310 (VECPRN)
+     ORIGIN OF SUPERELEMENT BASIC COORDINATE SYSTEM WILL BE USED AS REFERENCE LOCATION.
+     RESULTANTS ABOUT ORIGIN OF SUPERELEMENT BASIC COORDINATE SYSTEM IN SUPERELEMENT BASIC SYSTEM COORDINATES.
+0                                                  OLOAD    RESULTANT       
+  SUBCASE/    LOAD
+  DAREA ID    TYPE       T1            T2            T3            R1            R2            R3
+0        1     FX    0.000000E+00     ----          ----          ----       0.000000E+00  0.000000E+00                             
+               FY       ----       0.000000E+00     ----       0.000000E+00     ----       0.000000E+00                             
+               FZ       ----          ----       1.932000E+05  2.910383E-11 -3.337736E+06     ----                                  
+               MX       ----          ----          ----       0.000000E+00     ----          ----                                  
+               MY       ----          ----          ----          ----       0.000000E+00     ----                                  
+               MZ       ----          ----          ----          ----          ----       0.000000E+00                             
+             TOTALS  0.000000E+00  0.000000E+00  1.932000E+05  2.910383E-11 -3.337736E+06  0.000000E+00
+0        2     FX    0.000000E+00     ----          ----          ----       0.000000E+00  0.000000E+00                             
+               FY       ----       0.000000E+00     ----       0.000000E+00     ----       0.000000E+00                             
+               FZ       ----          ----       1.932000E+05  2.910383E-11 -3.337736E+06     ----                                  
+               MX       ----          ----          ----       0.000000E+00     ----          ----                                  
+               MY       ----          ----          ----          ----       0.000000E+00     ----                                  
+               MZ       ----          ----          ----          ----          ----       0.000000E+00                             
+             TOTALS  0.000000E+00  0.000000E+00  1.932000E+05  2.910383E-11 -3.337736E+06  0.000000E+00
+  
+ *** SYSTEM INFORMATION MESSAGE 4159 (DFMSA)
+     THE DECOMPOSITION OF KOO      YIELDS A MAXIMUM MATRIX-TO-FACTOR-DIAGONAL RATIO OF    1.000000E+00
+ *** USER INFORMATION MESSAGE 5293 (SSG3A)
+    FOR DATA BLOCK KOO     
+    LOAD SEQ. NO.             EPSILON              EXTERNAL WORK      EPSILONS LARGER THAN 0.001 ARE FLAGGED WITH ASTERISKS
+                1          0.0000000E+00          0.0000000E+00
+                2          0.0000000E+00          0.0000000E+00
+  
+ *** SYSTEM INFORMATION MESSAGE 4159 (DFMSA)
+     THE DECOMPOSITION OF KLL      YIELDS A MAXIMUM MATRIX-TO-FACTOR-DIAGONAL RATIO OF    8.074737E+03
+ *** USER INFORMATION MESSAGE 3035 (SOLVER)
+                                  FOR DATA BLOCK   KLR     
+    SUPPORT PT.NO.             EPSILON             STRAIN   ENERGY     EPSILONS LARGER THAN 0.001 ARE FLAGGED WITH ASTERISKS
+                1          4.6240380E-15          0.0000000E+00                 
+                2          4.6240380E-15          0.0000000E+00                 
+                3          4.6240380E-15          7.1525574E-07                 
+                4          4.6240380E-15         -5.9604645E-08                 
+                5          4.6240380E-15         -3.8146973E-06                 
+ ^^^     
+ *** USER INFORMATION MESSAGE 9936 (SUBDMAP MAKPRBD)
+     THE FOLLOWING RIGID BODY DEGREES OF FREEDOM ARE DEFINED TO BE SUPPORTED BY THE SUPDOF PARAMETER: TY, TZ, MX, MY, MZ
+ ^^^     
+1    EXAMPLE HA144F: FSW WITH FUSELAGE, 3 CONTROLS & 2 STOR HA144F          OCTOBER  18, 2016  MSC Nastran  5/30/13   PAGE     6
+      UNSYMMETRIC FLIGHT CONDITIONS, DOUBLET-LATTICE AERO                                                                           
+0     FULL-SPAN MODEL WITH DISPLACED CANARD                                                                  SUBCASE 1              
+
+    N O N - D I M E N S I O N A L   S T A B I L I T Y   A N D   C O N T R O L   D E R I V A T I V E   C O E F F I C I E N T S
+
+                         CONFIGURATION = AEROSG2D     XY-SYMMETRY = ASYMMETRIC     XZ-SYMMETRY = ASYMMETRIC
+                                         MACH = 9.0000E-01                    Q = 1.2000E+03
+                         CHORD = 1.0000E+01           SPAN = 4.0000E+01            AREA = 4.0000E+02
+
+
+                TRANSFORMATION FROM BASIC TO REFERENCE COORDINATES:
+
+              { X }        [ -1.0000   0.0000   0.0000  ]  { X }         { 1.5000E+01 }
+              { Y }    =   [  0.0000   1.0000   0.0000  ]  { Y }      +  { 0.0000E+00 }
+              { Z }REF     [  0.0000   0.0000  -1.0000  ]  { Z }BAS      { 0.0000E+00 }
+
+
+
+
+    CONTROLLER STATE: INTERCEPT ONLY, ALL CONTROLLERS ARE ZERO
+
+    TRIM VARIABLE   COEFFICIENT              RIGID                         ELASTIC                          INERTIAL
+                                   UNSPLINED        SPLINED       RESTRAINED      UNRESTRAINED     RESTRAINED      UNRESTRAINED
+
+    REF. COEFF.      CX         0.000000E+00    0.000000E+00     0.000000E+00    0.000000E+00     0.000000E+00    7.101391E-05
+                     CY        -2.172674E-10   -2.172674E-10    -2.875785E-10   -3.674912E-10     0.000000E+00   -3.674912E-10
+                     CZ        -7.502088E-03   -7.502088E-03    -9.901989E-03   -1.222186E-02     0.000000E+00   -1.222186E-02
+                     CMX       -2.783958E-11   -2.783958E-11    -6.666479E-11   -7.060742E-11     0.000000E+00   -7.060715E-11
+                     CMY       -4.898731E-03   -4.898731E-03    -6.364543E-03   -7.934161E-03     0.000000E+00   -7.934161E-03
+                     CMZ        5.341198E-11    5.341198E-11     6.615639E-11    8.775354E-11     0.000000E+00    8.775355E-11
+
+    ANGLEA           CX         0.000000E+00    0.000000E+00     0.000000E+00    0.000000E+00     0.000000E+00    4.076473E-02
+                     CY        -1.407018E-07   -1.407018E-07    -1.835068E-07   -2.345268E-07     0.000000E+00   -2.345268E-07
+                     CZ        -5.040129E+00   -5.040129E+00    -6.537388E+00   -7.992976E+00     0.000000E+00   -7.992976E+00
+                     CMX       -1.559699E-08   -1.559699E-08    -3.941162E-08   -4.230653E-08     0.000000E+00   -4.230637E-08
+                     CMY       -2.877635E+00   -2.877635E+00    -3.791211E+00   -4.776923E+00     0.000000E+00   -4.776923E+00
+                     CMZ        3.819417E-08    3.819417E-08     4.587442E-08    5.966058E-08     0.000000E+00    5.966059E-08
+
+    PITCH            CX         0.000000E+00    0.000000E+00     0.000000E+00    0.000000E+00     0.000000E+00    1.231187E-01
+                     CY        -3.644770E-07   -3.644770E-07    -3.931017E-07   -5.189875E-07     0.000000E+00   -5.189875E-07
+                     CZ        -1.198419E+01   -1.198419E+01    -1.324751E+01   -1.683722E+01     0.000000E+00   -1.683722E+01
+                     CMX        1.210000E-08    1.210000E-08    -1.927319E-08   -3.694160E-08     0.000000E+00   -3.694130E-08
+                     CMY       -9.632812E+00   -9.632812E+00    -1.035169E+01   -1.276509E+01     0.000000E+00   -1.276509E+01
+                     CMZ        1.041015E-07    1.041015E-07     1.064095E-07    1.389850E-07     0.000000E+00    1.389850E-07
+
+    URDD3            CX         0.000000E+00    0.000000E+00     0.000000E+00    0.000000E+00    -1.640429E-17    0.000000E+00
+                     CY         0.000000E+00    0.000000E+00     1.096061E-10    0.000000E+00    -2.169416E-16    0.000000E+00
+                     CZ         0.000000E+00    0.000000E+00     4.103938E-03    0.000000E+00     3.354167E-02    0.000000E+00
+                     CMX        0.000000E+00    0.000000E+00     1.724437E-11    0.000000E+00    -1.166318E-15    0.000000E+00
+                     CMY        0.000000E+00    0.000000E+00     2.820730E-03    0.000000E+00     7.634307E-03    0.000000E+00
+                     CMZ        0.000000E+00    0.000000E+00    -2.680381E-11    0.000000E+00     5.298699E-17    0.000000E+00
+1    EXAMPLE HA144F: FSW WITH FUSELAGE, 3 CONTROLS & 2 STOR HA144F          OCTOBER  18, 2016  MSC Nastran  5/30/13   PAGE     7
+      UNSYMMETRIC FLIGHT CONDITIONS, DOUBLET-LATTICE AERO                                                                           
+0     FULL-SPAN MODEL WITH DISPLACED CANARD                                                                  SUBCASE 1              
+
+    TRIM VARIABLE   COEFFICIENT              RIGID                         ELASTIC                          INERTIAL
+                                   UNSPLINED        SPLINED       RESTRAINED      UNRESTRAINED     RESTRAINED      UNRESTRAINED
+
+    URDD5            CX         0.000000E+00    0.000000E+00     0.000000E+00    0.000000E+00    -5.208333E-03    0.000000E+00
+                     CY         0.000000E+00    0.000000E+00     2.237901E-09    0.000000E+00    -1.996204E-15    0.000000E+00
+                     CZ         0.000000E+00    0.000000E+00     8.055958E-02    0.000000E+00     7.634307E-02    0.000000E+00
+                     CMX        0.000000E+00    0.000000E+00     4.511595E-10    0.000000E+00    -1.074405E-14    0.000000E+00
+                     CMY        0.000000E+00    0.000000E+00     5.239134E-02    0.000000E+00     3.952647E-01    0.000000E+00
+                     CMZ        0.000000E+00    0.000000E+00    -5.279253E-10    0.000000E+00     4.903751E-16    0.000000E+00
+
+    ELEV             CX         0.000000E+00    0.000000E+00     0.000000E+00    0.000000E+00     0.000000E+00   -1.666022E-03
+                     CY        -3.645290E-03   -3.645290E-03    -4.944192E-03   -3.926305E-03     0.000000E+00   -3.926305E-03
+                     CZ        -5.189399E-02   -5.189399E-02    -7.997872E-02   -7.224647E-02     0.000000E+00   -7.224647E-02
+                     CMX        3.166315E-03    3.166315E-03     4.273698E-03    3.891329E-03     0.000000E+00    3.891329E-03
+                     CMY        1.170229E-01    1.170229E-01     9.940528E-02    1.044337E-01     0.000000E+00    1.044337E-01
+                     CMZ       -6.379589E-03   -6.379589E-03    -5.862431E-03   -6.230293E-03     0.000000E+00   -6.230293E-03
+
+    SIDES            CX         0.000000E+00    0.000000E+00     0.000000E+00    0.000000E+00     0.000000E+00    2.350241E-10
+                     CY        -7.493701E-01   -7.493701E-01    -7.137760E-01   -7.576050E-01     0.000000E+00   -7.576050E-01
+                     CZ        -1.019114E-08   -1.019114E-08    -5.254216E-10   -2.102834E-09     0.000000E+00   -2.102863E-09
+                     CMX       -1.354676E-01   -1.354676E-01    -1.477701E-01   -1.363622E-01     0.000000E+00   -1.363622E-01
+                     CMY       -2.281555E-08   -2.281555E-08    -1.281925E-08   -1.752976E-08     0.000000E+00   -1.752979E-08
+                     CMZ        1.900326E-01    1.900326E-01     1.774890E-01    1.929883E-01     0.000000E+00    1.929883E-01
+
+    YAW              CX         0.000000E+00    0.000000E+00     0.000000E+00    0.000000E+00     0.000000E+00   -4.892733E-10
+                     CY         7.217303E-01    7.217303E-01     6.687397E-01    7.260462E-01     0.000000E+00    7.260462E-01
+                     CZ         3.482892E-08    3.482892E-08     2.046702E-08    2.992715E-08     0.000000E+00    2.992718E-08
+                     CMX        9.353673E-02    9.353673E-02     8.854351E-02    8.711861E-02     0.000000E+00    8.711861E-02
+                     CMY        4.450039E-08    4.450039E-08     3.314487E-08    4.230965E-08     0.000000E+00    4.230969E-08
+                     CMZ       -2.584813E-01   -2.584813E-01    -2.425676E-01   -2.609810E-01     0.000000E+00   -2.609810E-01
+
+    ROLL             CX         0.000000E+00    0.000000E+00     0.000000E+00    0.000000E+00     0.000000E+00    7.786868E-10
+                     CY        -1.516381E-01   -1.516381E-01    -1.633789E-01   -1.590035E-01     0.000000E+00   -1.590035E-01
+                     CZ        -1.129761E-07   -1.129761E-07    -2.683299E-07   -3.003761E-07     0.000000E+00   -3.003761E-07
+                     CMX       -4.362885E-01   -4.362885E-01    -5.353553E-01   -4.651975E-01     0.000000E+00   -4.651975E-01
+                     CMY       -9.604447E-09   -9.604449E-09    -9.248430E-08   -1.248646E-07     0.000000E+00   -1.248645E-07
+                     CMZ       -9.201576E-04   -9.201568E-04    -9.716503E-03   -2.064238E-03     0.000000E+00   -2.064238E-03
+
+    URDD2            CX         0.000000E+00    0.000000E+00     0.000000E+00    0.000000E+00    -3.810944E-16    0.000000E+00
+                     CY         0.000000E+00    0.000000E+00     7.924407E-04    0.000000E+00     3.354167E-02    0.000000E+00
+                     CZ         0.000000E+00    0.000000E+00     1.183159E-11    0.000000E+00    -1.738221E-27    0.000000E+00
+                     CMX        0.000000E+00    0.000000E+00     1.503346E-04    0.000000E+00     1.302083E-04    0.000000E+00
+                     CMY        0.000000E+00    0.000000E+00     2.412312E-11    0.000000E+00     3.245506E-17    0.000000E+00
+                     CMZ        0.000000E+00    0.000000E+00    -2.422817E-04    0.000000E+00    -1.908577E-03    0.000000E+00
+1    EXAMPLE HA144F: FSW WITH FUSELAGE, 3 CONTROLS & 2 STOR HA144F          OCTOBER  18, 2016  MSC Nastran  5/30/13   PAGE     8
+      UNSYMMETRIC FLIGHT CONDITIONS, DOUBLET-LATTICE AERO                                                                           
+0     FULL-SPAN MODEL WITH DISPLACED CANARD                                                                  SUBCASE 1              
+
+    TRIM VARIABLE   COEFFICIENT              RIGID                         ELASTIC                          INERTIAL
+                                   UNSPLINED        SPLINED       RESTRAINED      UNRESTRAINED     RESTRAINED      UNRESTRAINED
+
+    URDD4            CX         0.000000E+00    0.000000E+00     0.000000E+00    0.000000E+00    -1.653905E-17    0.000000E+00
+                     CY         0.000000E+00    0.000000E+00     1.123463E-04    0.000000E+00     5.208333E-03    0.000000E+00
+                     CZ         0.000000E+00    0.000000E+00    -5.516313E-10    0.000000E+00    -2.462428E-14    0.000000E+00
+                     CMX        0.000000E+00    0.000000E+00    -3.891727E-03    0.000000E+00     2.627604E-02    0.000000E+00
+                     CMY        0.000000E+00    0.000000E+00     2.037530E-10    0.000000E+00    -2.369970E-14    0.000000E+00
+                     CMZ        0.000000E+00    0.000000E+00    -5.270857E-04    0.000000E+00    -1.061087E-03    0.000000E+00
+
+    URDD6            CX         0.000000E+00    0.000000E+00     0.000000E+00    0.000000E+00     3.313185E-15    0.000000E+00
+                     CY         0.000000E+00    0.000000E+00    -2.387613E-02    0.000000E+00    -7.634307E-02    0.000000E+00
+                     CZ         0.000000E+00    0.000000E+00    -1.215709E-11    0.000000E+00     1.337525E-17    0.000000E+00
+                     CMX        0.000000E+00    0.000000E+00    -4.560409E-03    0.000000E+00    -1.061087E-03    0.000000E+00
+                     CMY        0.000000E+00    0.000000E+00    -5.015473E-10    0.000000E+00    -2.751940E-16    0.000000E+00
+                     CMZ        0.000000E+00    0.000000E+00     6.942536E-03    0.000000E+00     1.246235E-01    0.000000E+00
+
+    AILERON          CX         0.000000E+00    0.000000E+00     0.000000E+00    0.000000E+00     0.000000E+00   -6.679025E-03
+                     CY         2.455903E-02    2.455903E-02     2.620930E-02    2.485913E-02     0.000000E+00    2.485913E-02
+                     CZ         6.192241E-01    6.192241E-01     6.439628E-01    8.387171E-01     0.000000E+00    8.387171E-01
+                     CMX        1.401520E-01    1.401520E-01     1.532427E-01    1.331393E-01     0.000000E+00    1.331393E-01
+                     CMY        5.342677E-01    5.342677E-01     5.455392E-01    6.754915E-01     0.000000E+00    6.754915E-01
+                     CMZ        2.583197E-03    2.583197E-03     3.634065E-03    1.492682E-03     0.000000E+00    1.492682E-03
+
+    RUDDER           CX         0.000000E+00    0.000000E+00     0.000000E+00    0.000000E+00     0.000000E+00   -7.893632E-11
+                     CY         2.297473E-01    2.297473E-01     1.926551E-01    2.195246E-01     0.000000E+00    2.195246E-01
+                     CZ         6.053473E-09    6.053473E-09     3.011328E-09    4.279324E-09     0.000000E+00    4.279341E-09
+                     CMX        3.164923E-02    3.164923E-02     2.404624E-02    2.562781E-02     0.000000E+00    2.562781E-02
+                     CMY        7.542615E-09    7.542615E-09     4.809649E-09    6.700840E-09     0.000000E+00    6.700856E-09
+                     CMZ       -1.170619E-01   -1.170619E-01    -1.058725E-01   -1.140591E-01     0.000000E+00   -1.140591E-01
+
+    ELEV_R           CX         0.000000E+00    0.000000E+00     0.000000E+00    0.000000E+00     0.000000E+00   -1.666022E-03
+                     CY         3.645287E-03    3.645287E-03     4.944188E-03    3.926300E-03     0.000000E+00    3.926300E-03
+                     CZ        -5.189398E-02   -5.189398E-02    -7.997871E-02   -7.224646E-02     0.000000E+00   -7.224646E-02
+                     CMX       -3.166316E-03   -3.166316E-03    -4.273698E-03   -3.891330E-03     0.000000E+00   -3.891330E-03
+                     CMY        1.170229E-01    1.170229E-01     9.940529E-02    1.044338E-01     0.000000E+00    1.044338E-01
+                     CMZ        6.379593E-03    6.379593E-03     5.862435E-03    6.230297E-03     0.000000E+00    6.230297E-03
+
+    ALER_R           CX         0.000000E+00    0.000000E+00     0.000000E+00    0.000000E+00     0.000000E+00    6.679025E-03
+                     CY         2.455897E-02    2.455897E-02     2.620924E-02    2.485906E-02     0.000000E+00    2.485906E-02
+                     CZ        -6.192242E-01   -6.192242E-01    -6.439628E-01   -8.387171E-01     0.000000E+00   -8.387171E-01
+                     CMX        1.401520E-01    1.401520E-01     1.532427E-01    1.331392E-01     0.000000E+00    1.331392E-01
+                     CMY       -5.342678E-01   -5.342678E-01    -5.455393E-01   -6.754916E-01     0.000000E+00   -6.754916E-01
+                     CMZ        2.583212E-03    2.583212E-03     3.634079E-03    1.492700E-03     0.000000E+00    1.492700E-03
+1    EXAMPLE HA144F: FSW WITH FUSELAGE, 3 CONTROLS & 2 STOR HA144F          OCTOBER  18, 2016  MSC Nastran  5/30/13   PAGE     9
+      UNSYMMETRIC FLIGHT CONDITIONS, DOUBLET-LATTICE AERO                                                                           
+0     FULL-SPAN MODEL WITH DISPLACED CANARD                                                                  SUBCASE 1              
+
+          N O N - D I M E N S I O N A L    H I N G E    M O M E N T    D E R I V A T I V E   C O E F F I C I E N T S
+
+
+
+                         CONFIGURATION = AEROSG2D     XY-SYMMETRY = ASYMMETRIC     XZ-SYMMETRY = ASYMMETRIC
+                                         MACH = 9.0000E-01                    Q = 1.2000E+03
+
+          CONTROL SURFACE = ELEV         REFERENCE CHORD LENGTH =  1.000000E+00     REFERENCE AREA =  1.000000E+00
+
+              TRIM VARIABLE               RIGID                             ELASTIC                            INERTIAL
+                                                                 RESTRAINED      UNRESTRAINED         RESTRAINED      UNRESTRAINED
+              AT REFERENCE        -8.813941E-03                -1.214127E-02   -2.066324E-02         0.000000E+00    0.000000E+00
+              ANGLEA               1.691471E+02                 1.674710E+02    1.623227E+02         0.000000E+00    0.000000E+00
+              PITCH               -1.438620E+02                -1.458722E+02   -1.564436E+02         0.000000E+00    0.000000E+00
+              URDD3                0.000000E+00                 1.261296E-02    0.000000E+00         0.000000E+00    0.000000E+00
+              URDD5                0.000000E+00                 4.128597E-02    0.000000E+00         0.000000E+00    0.000000E+00
+              ELEV                 1.421520E+02                 1.423976E+02    1.425286E+02         0.000000E+00    0.000000E+00
+              SIDES                2.525363E+01                 2.535329E+01    2.529931E+01         0.000000E+00    0.000000E+00
+              YAW                  5.005383E+00                 4.865306E+00    4.914598E+00         0.000000E+00    0.000000E+00
+              ROLL                 2.173693E+01                 2.100862E+01    2.138058E+01         0.000000E+00    0.000000E+00
+              URDD2                0.000000E+00                 9.189175E-03    0.000000E+00         0.000000E+00    0.000000E+00
+              URDD4                0.000000E+00                -2.917762E-02    0.000000E+00         0.000000E+00    0.000000E+00
+              URDD6                0.000000E+00                 2.133843E-03    0.000000E+00         0.000000E+00    0.000000E+00
+              AILERON              4.148142E-01                 5.674087E-01    7.539526E-01         0.000000E+00    0.000000E+00
+              RUDDER              -2.249527E-02                -1.662712E-01   -2.666610E-01         0.000000E+00    0.000000E+00
+              ELEV_R               7.727103E+00                 7.711182E+00    7.852076E+00         0.000000E+00    0.000000E+00
+              ALER_R               1.536865E-01                 2.366319E-01   -1.985966E-01         0.000000E+00    0.000000E+00
+
+          CONTROL SURFACE = AILERON      REFERENCE CHORD LENGTH =  1.000000E+00     REFERENCE AREA =  1.000000E+00
+
+              TRIM VARIABLE               RIGID                             ELASTIC                            INERTIAL
+                                                                 RESTRAINED      UNRESTRAINED         RESTRAINED      UNRESTRAINED
+              AT REFERENCE         3.445224E-02                 4.537074E-02    5.609641E-02         0.000000E+00    0.000000E+00
+              ANGLEA               2.180094E+01                 2.861031E+01    3.533903E+01         0.000000E+00    0.000000E+00
+              PITCH                9.990192E+01                 1.055990E+02    1.221708E+02         0.000000E+00    0.000000E+00
+              URDD3                0.000000E+00                -1.897506E-02    0.000000E+00         0.000000E+00    0.000000E+00
+              URDD5                0.000000E+00                -3.697813E-01    0.000000E+00         0.000000E+00    0.000000E+00
+              ELEV                -5.853266E-01                -4.823066E-01   -5.091072E-01         0.000000E+00    0.000000E+00
+              SIDES               -4.868264E-01                -1.697987E-01   -5.034003E-01         0.000000E+00    0.000000E+00
+              YAW                 -1.398019E+00                -1.501012E+00   -1.279878E+00         0.000000E+00    0.000000E+00
+              ROLL                 6.021499E+00                 7.565954E+00    6.462220E+00         0.000000E+00    0.000000E+00
+              URDD2                0.000000E+00                 3.399156E-04    0.000000E+00         0.000000E+00    0.000000E+00
+              URDD4                0.000000E+00                 6.247066E-02    0.000000E+00         0.000000E+00    0.000000E+00
+              URDD6                0.000000E+00                -9.951873E-03    0.000000E+00         0.000000E+00    0.000000E+00
+              AILERON             -6.002864E+01                -6.034002E+01   -6.092087E+01         0.000000E+00    0.000000E+00
+              RUDDER               6.474181E-02                 5.731325E-02    1.253664E-01         0.000000E+00    0.000000E+00
+              ELEV_R               6.619518E-03                 1.578440E-01    1.117973E-01         0.000000E+00    0.000000E+00
+              ALER_R               8.316217E-01                 7.338068E-01    1.946588E+00         0.000000E+00    0.000000E+00
+
+          CONTROL SURFACE = RUDDER       REFERENCE CHORD LENGTH =  1.000000E+00     REFERENCE AREA =  1.000000E+00
+
+              TRIM VARIABLE               RIGID                             ELASTIC                            INERTIAL
+                                                                 RESTRAINED      UNRESTRAINED         RESTRAINED      UNRESTRAINED
+              AT REFERENCE        -5.698076E-10                -6.672483E-10   -9.047480E-10         0.000000E+00    0.000000E+00
+              ANGLEA              -2.260733E-07                -2.823584E-07   -4.345111E-07         0.000000E+00    0.000000E+00
+              PITCH               -1.235623E-06                -1.203867E-06   -1.589257E-06         0.000000E+00    0.000000E+00
+              URDD3                0.000000E+00                 3.565057E-10    0.000000E+00         0.000000E+00    0.000000E+00
+              URDD5                0.000000E+00                 6.264985E-09    0.000000E+00         0.000000E+00    0.000000E+00
+              ELEV                -3.139367E-02                -3.299045E-02   -3.156914E-02         0.000000E+00    0.000000E+00
+              SIDES               -2.633105E+00                -2.467452E+00   -2.580033E+00         0.000000E+00    0.000000E+00
+              YAW                 -4.075430E+00                -4.289198E+00   -4.129042E+00         0.000000E+00    0.000000E+00
+              ROLL                -1.308953E-01                -3.111288E-01   -1.826234E-01         0.000000E+00    0.000000E+00
+              URDD2                0.000000E+00                 3.557921E-03    0.000000E+00         0.000000E+00    0.000000E+00
+              URDD4                0.000000E+00                -6.327540E-03    0.000000E+00         0.000000E+00    0.000000E+00
+              URDD6                0.000000E+00                -6.554688E-02    0.000000E+00         0.000000E+00    0.000000E+00
+              AILERON              1.792050E-01                 2.088133E-01    1.711299E-01         0.000000E+00    0.000000E+00
+              RUDDER              -3.347747E+01                -3.355650E+01   -3.348036E+01         0.000000E+00    0.000000E+00
+              ELEV_R               3.139384E-02                 3.299062E-02    3.156931E-02         0.000000E+00    0.000000E+00
+              ALER_R               1.792049E-01                 2.088131E-01    1.711297E-01         0.000000E+00    0.000000E+00
+
+          CONTROL SURFACE = ELEV_R       REFERENCE CHORD LENGTH =  1.000000E+00     REFERENCE AREA =  1.000000E+00
+
+              TRIM VARIABLE               RIGID                             ELASTIC                            INERTIAL
+                                                                 RESTRAINED      UNRESTRAINED         RESTRAINED      UNRESTRAINED
+              AT REFERENCE        -8.813934E-03                -1.214126E-02   -2.066323E-02         0.000000E+00    0.000000E+00
+              ANGLEA               1.691471E+02                 1.674711E+02    1.623227E+02         0.000000E+00    0.000000E+00
+              PITCH               -1.438620E+02                -1.458722E+02   -1.564436E+02         0.000000E+00    0.000000E+00
+              URDD3                0.000000E+00                 1.261296E-02    0.000000E+00         0.000000E+00    0.000000E+00
+              URDD5                0.000000E+00                 4.128589E-02    0.000000E+00         0.000000E+00    0.000000E+00
+              ELEV                 7.727100E+00                 7.711180E+00    7.852073E+00         0.000000E+00    0.000000E+00
+              SIDES               -2.525363E+01                -2.535329E+01   -2.529931E+01         0.000000E+00    0.000000E+00
+              YAW                 -5.005383E+00                -4.865306E+00   -4.914598E+00         0.000000E+00    0.000000E+00
+              ROLL                -2.173693E+01                -2.100862E+01   -2.138059E+01         0.000000E+00    0.000000E+00
+              URDD2                0.000000E+00                -9.189175E-03    0.000000E+00         0.000000E+00    0.000000E+00
+              URDD4                0.000000E+00                 2.917760E-02    0.000000E+00         0.000000E+00    0.000000E+00
+              URDD6                0.000000E+00                -2.133865E-03    0.000000E+00         0.000000E+00    0.000000E+00
+              AILERON             -1.536858E-01                -2.366311E-01    1.985971E-01         0.000000E+00    0.000000E+00
+              RUDDER               2.249527E-02                 1.662712E-01    2.666610E-01         0.000000E+00    0.000000E+00
+              ELEV_R               1.421520E+02                 1.423976E+02    1.425286E+02         0.000000E+00    0.000000E+00
+              ALER_R              -4.148125E-01                -5.674069E-01   -7.539507E-01         0.000000E+00    0.000000E+00
+
+          CONTROL SURFACE = ALER_R       REFERENCE CHORD LENGTH =  1.000000E+00     REFERENCE AREA =  1.000000E+00
+
+              TRIM VARIABLE               RIGID                             ELASTIC                            INERTIAL
+                                                                 RESTRAINED      UNRESTRAINED         RESTRAINED      UNRESTRAINED
+1    EXAMPLE HA144F: FSW WITH FUSELAGE, 3 CONTROLS & 2 STOR HA144F          OCTOBER  18, 2016  MSC Nastran  5/30/13   PAGE    10
+      UNSYMMETRIC FLIGHT CONDITIONS, DOUBLET-LATTICE AERO                                                                           
+0     FULL-SPAN MODEL WITH DISPLACED CANARD                                                                  SUBCASE 1              
+
+          N O N - D I M E N S I O N A L    H I N G E    M O M E N T    D E R I V A T I V E   C O E F F I C I E N T S
+
+
+
+                         CONFIGURATION = AEROSG2D     XY-SYMMETRY = ASYMMETRIC     XZ-SYMMETRY = ASYMMETRIC
+                                         MACH = 9.0000E-01                    Q = 1.2000E+03
+
+          CONTROL SURFACE = ALER_R       REFERENCE CHORD LENGTH =  1.000000E+00     REFERENCE AREA =  1.000000E+00
+
+              TRIM VARIABLE               RIGID                             ELASTIC                            INERTIAL
+                                                                 RESTRAINED      UNRESTRAINED         RESTRAINED      UNRESTRAINED
+              AT REFERENCE        -3.445225E-02                -4.537075E-02   -5.609642E-02         0.000000E+00    0.000000E+00
+              ANGLEA              -2.180095E+01                -2.861032E+01   -3.533903E+01         0.000000E+00    0.000000E+00
+              PITCH               -9.990196E+01                -1.055990E+02   -1.221708E+02         0.000000E+00    0.000000E+00
+              URDD3                0.000000E+00                 1.897507E-02    0.000000E+00         0.000000E+00    0.000000E+00
+              URDD5                0.000000E+00                 3.697814E-01    0.000000E+00         0.000000E+00    0.000000E+00
+              ELEV                -6.619402E-03                -1.578440E-01   -1.117972E-01         0.000000E+00    0.000000E+00
+              SIDES               -4.868292E-01                -1.698011E-01   -5.034030E-01         0.000000E+00    0.000000E+00
+              YAW                 -1.398017E+00                -1.501011E+00   -1.279876E+00         0.000000E+00    0.000000E+00
+              ROLL                 6.021502E+00                 7.565956E+00    6.462221E+00         0.000000E+00    0.000000E+00
+              URDD2                0.000000E+00                 3.399184E-04    0.000000E+00         0.000000E+00    0.000000E+00
+              URDD4                0.000000E+00                 6.247069E-02    0.000000E+00         0.000000E+00    0.000000E+00
+              URDD6                0.000000E+00                -9.951952E-03    0.000000E+00         0.000000E+00    0.000000E+00
+              AILERON              8.316212E-01                 7.338064E-01    1.946588E+00         0.000000E+00    0.000000E+00
+              RUDDER               6.474196E-02                 5.731326E-02    1.253665E-01         0.000000E+00    0.000000E+00
+              ELEV_R               5.853274E-01                 4.823074E-01    5.091080E-01         0.000000E+00    0.000000E+00
+              ALER_R              -6.002867E+01                -6.034005E+01   -6.092090E+01         0.000000E+00    0.000000E+00
+1    EXAMPLE HA144F: FSW WITH FUSELAGE, 3 CONTROLS & 2 STOR HA144F          OCTOBER  18, 2016  MSC Nastran  5/30/13   PAGE    11
+      UNSYMMETRIC FLIGHT CONDITIONS, DOUBLET-LATTICE AERO                                                                           
+0     FULL-SPAN MODEL WITH DISPLACED CANARD                                                                  SUBCASE 1              
+                                                  INTERMEDIATE MATRIX ... HP      
+
+
+                                                            COLUMN      1
+     1                 -4.546921E-11       2.237854E-03       6.292214E-11      -1.218842E-04      -5.662113E-12                  5
+
+                                                            COLUMN      2
+     1                 -3.123525E-08       1.414439E+00       3.873238E-08      -7.417408E-02      -4.208027E-09                  5
+
+                                                            COLUMN      3
+     1                 -7.442513E-08       2.969789E+00       3.004865E-08      -2.094978E-01      -1.169983E-08                  5
+
+                                                            COLUMN      4
+     1                 -1.854029E-11      -5.562317E-03       1.757095E-11       1.233582E-04      -2.547646E-12                  5
+
+                                                            COLUMN      5
+     1                 -3.635623E-10       1.540755E-03       4.385751E-10       7.445705E-03      -4.712759E-11                  5
+
+                                                            COLUMN      6
+     1                  2.051413E-03      -3.208608E-03      -8.137929E-03       1.146821E-03       7.283070E-04                  5
+
+                                                            COLUMN      7
+     1                 -1.529903E-01       1.750856E-09       1.071376E-01      -3.567264E-10      -2.518214E-02                  5
+
+                                                            COLUMN      8
+     1                  1.536015E-01      -6.545626E-09      -5.494779E-02       8.107392E-10       3.605023E-02                  5
+
+                                                            COLUMN      9
+     1                  1.071310E-02       6.062957E-08       4.499268E-01      -1.252380E-09       7.624566E-03                  5
+
+                                                            COLUMN     10
+     1                  5.622060E-03       4.732933E-12       2.100416E-05      -6.193322E-13       3.169009E-04                  5
+
+                                                            COLUMN     11
+     1                  1.395212E-04      -1.230035E-10      -2.456579E-02      -7.662716E-12      -1.693952E-05                  5
+
+                                                            COLUMN     12
+     1                 -1.966925E-02      -6.385432E-11      -2.716776E-03       1.429902E-11      -1.675671E-02                  5
+
+                                                            COLUMN     13
+     1                 -2.678064E-03      -1.777589E-01      -1.220825E-01       1.238678E-02      -1.876654E-03                  5
+
+                                                            COLUMN     14
+     1                  7.398352E-02      -8.063840E-10      -1.039103E-02       1.122802E-10       1.980788E-02                  5
+
+                                                            COLUMN     15
+     1                 -2.051415E-03      -3.208611E-03       8.137931E-03       1.146821E-03      -7.283075E-04                  5
+
+                                                            COLUMN     16
+     1                 -2.678074E-03       1.777589E-01      -1.220825E-01      -1.238679E-02      -1.876656E-03                  5
+
+1    EXAMPLE HA144F: FSW WITH FUSELAGE, 3 CONTROLS & 2 STOR HA144F          OCTOBER  18, 2016  MSC Nastran  5/30/13   PAGE    12
+      UNSYMMETRIC FLIGHT CONDITIONS, DOUBLET-LATTICE AERO                                                                           
+0     FULL-SPAN MODEL WITH DISPLACED CANARD                                                                  SUBCASE 1              
+                                                  INTERMEDIATE MATRIX ... UX      
+
+
+                                                            COLUMN      1
+     1         1.000000E+00      -3.978428E-02       0.000000E+00      -1.000000E+00       0.000000E+00      -4.603211E-01        6
+     7        -2.200722E-09      -1.709626E-08       1.638181E-09       0.000000E+00       0.000000E+00       0.000000E+00       12
+    13         0.000000E+00       0.000000E+00      -4.603211E-01       0.000000E+00                                             16
+
+1    EXAMPLE HA144F: FSW WITH FUSELAGE, 3 CONTROLS & 2 STOR HA144F          OCTOBER  18, 2016  MSC Nastran  5/30/13   PAGE    13
+      UNSYMMETRIC FLIGHT CONDITIONS, DOUBLET-LATTICE AERO                                                                           
+0     FULL-SPAN MODEL WITH DISPLACED CANARD                                                                  SUBCASE 1              
+                                                  INTERMEDIATE MATRIX ... UXIFV   
+
+
+                                                            COLUMN      1
+     1         1.960427E+00      -3.978428E-02       0.000000E+00      -4.603211E-01      -2.200722E-09      -1.709626E-08        6
+     7         1.638181E-09       0.000000E+00       0.000000E+00      -4.603211E-01       0.000000E+00       0.000000E+00       12
+    13        -1.000000E+00       0.000000E+00       0.000000E+00       0.000000E+00                                             16
+
+1    EXAMPLE HA144F: FSW WITH FUSELAGE, 3 CONTROLS & 2 STOR HA144F          OCTOBER  18, 2016  MSC Nastran  5/30/13   PAGE    14
+      UNSYMMETRIC FLIGHT CONDITIONS, DOUBLET-LATTICE AERO                                                                           
+0     FULL-SPAN MODEL WITH DISPLACED CANARD                                                                  SUBCASE 1              
+
+                               A E R O S T A T I C   D A T A   R E C O V E R Y   O U T P U T   T A B L E S
+                         CONFIGURATION = AEROSG2D     XY-SYMMETRY = ASYMMETRIC     XZ-SYMMETRY = ASYMMETRIC
+                                           MACH = 9.000000E-01                Q = 1.200000E+03
+                         CHORD = 1.0000E+01           SPAN = 4.0000E+01            AREA = 4.0000E+02
+
+          TRIM ALGORITHM USED: LINEAR TRIM SOLUTION WITHOUT REDUNDANT CONTROL SURFACES.                                           
+
+
+                                                      AEROELASTIC TRIM VARIABLES
+
+                                  ID     LABEL                 TYPE        TRIM STATUS      VALUE OF UX
+
+                                         INTERCEPT          RIGID BODY           FIXED      1.000000E+00
+                                 501     ANGLEA             RIGID BODY            FREE     -3.978428E-02  RADIANS         
+                                 502     PITCH              RIGID BODY           FIXED      0.000000E+00  NONDIMEN. RATE  
+                                 503     URDD3              RIGID BODY           FIXED     -1.000000E+00  LOAD FACTOR     
+                                 504     URDD5              RIGID BODY           FIXED      0.000000E+00  RAD/S/S PER G   
+                                 505     ELEV          CONTROL SURFACE            FREE     -4.603211E-01  RADIANS         
+                                 511     SIDES              RIGID BODY            FREE     -2.200722E-09  RADIANS         
+                                 512     YAW                RIGID BODY            FREE     -1.709626E-08  NONDIMEN. RATE  
+                                 513     ROLL               RIGID BODY            FREE      1.638181E-09  NONDIMEN. RATE  
+                                 514     URDD2              RIGID BODY           FIXED      0.000000E+00  LOAD FACTOR     
+                                 515     URDD4              RIGID BODY           FIXED      0.000000E+00  RAD/S/S PER G   
+                                 516     URDD6              RIGID BODY           FIXED      0.000000E+00  RAD/S/S PER G   
+                                 517     AILERON       CONTROL SURFACE           FIXED      0.000000E+00  RADIANS         
+                                 518     RUDDER        CONTROL SURFACE           FIXED      0.000000E+00  RADIANS         
+                                1505     ELEV_R        CONTROL SURFACE          LINKED     -4.603211E-01  RADIANS         
+                                1517     ALER_R        CONTROL SURFACE          LINKED      0.000000E+00  RADIANS         
+
+
+                                           CONTROL SURFACE POSITION AND HINGE MOMENT RESULTS
+
+                            ACTIVE LIMITS ARE FLAGGED WITH AN (A),  VIOLATED LIMITS ARE FLAGGED WITH A (V).
+
+                                                POSITION                                         HINGE MOMENT
+          CONTROL SURFACE      LOWER LIMIT       VALUE         UPPER LIMIT        LOWER LIMIT       VALUE         UPPER LIMIT
+              ELEV           -1.570796E+00   -4.603211E-01    1.570796E+00            N/A       -9.076124E+04         N/A      
+              AILERON        -1.570796E+00    0.000000E+00    1.570796E+00            N/A       -1.382686E+03         N/A      
+              RUDDER         -1.570796E+00    0.000000E+00    1.570796E+00            N/A        1.700488E-05         N/A      
+              ELEV_R         -1.570796E+00   -4.603211E-01    1.570796E+00            N/A       -9.076124E+04         N/A      
+              ALER_R         -1.570796E+00    0.000000E+00    1.570796E+00            N/A        1.382686E+03         N/A      
+1    EXAMPLE HA144F: FSW WITH FUSELAGE, 3 CONTROLS & 2 STOR HA144F          OCTOBER  18, 2016  MSC Nastran  5/30/13   PAGE    15
+      UNSYMMETRIC FLIGHT CONDITIONS, DOUBLET-LATTICE AERO                                                                           
+0     FULL-SPAN MODEL WITH DISPLACED CANARD                                                                  SUBCASE 1              
+
+                               A E R O S T A T I C   D A T A   R E C O V E R Y   O U T P U T   T A B L E S
+                         CONFIGURATION = AEROSG2D     XY-SYMMETRY = ASYMMETRIC     XZ-SYMMETRY = ASYMMETRIC
+                                           MACH = 9.000000E-01                Q = 1.200000E+03
+                         CHORD = 1.0000E+01           SPAN = 4.0000E+01            AREA = 4.0000E+02
+
+
+                                        TRANSFORMATION FROM REFERENCE TO WIND AXES:
+                                ANGLE OF ATTACK   = -3.978428E-02 RADIANS (    -2.279472 DEGREES)
+                                ANGLE OF SIDESLIP = -2.200722E-09 RADIANS (     0.000000 DEGREES)
+
+                                      { X }          [ -0.999209  0.000000  0.039774 ]  { X }
+                                      { Y }          [  0.000000  1.000000  0.000000 ]  { Y }
+                                      { Z }WIND =    [ -0.039774  0.000000 -0.999209 ]  { Z }REF
+
+
+    STRUCTURAL  MONITOR POINT TOTAL VEHICLE COEFFICIENTS:
+          AXIS         RIGID AIR  +  RESTRAINED INCR.  -  INERTIAL  +   RIGID-APPLIED + RESTRAINED INCR.  =  BALANCE
+          ----         ---------     ----------------     --------      -------------   ----------------     -------
+    BODY  CX          0.000000E+00     0.000000E+00     1.640429E-17     0.000000E+00     0.000000E+00    -1.640429E-17
+    WIND  CD          9.577193E-03     3.138928E-03    -1.334079E-03    -1.600895E-02     1.958750E-03     1.734723E-17
+ 
+    BODY  CY         -4.075113E-09     2.759839E-09     2.169416E-16     0.000000E+00     1.315274E-09     8.510599E-19
+    WIND  CY-WIND    -4.054036E-09     2.766747E-09    -2.935720E-12    -3.523125E-11     1.319585E-09     8.510599E-19
+ 
+    BODY  CZ          2.407916E-01     7.891953E-02    -3.354167E-02    -4.025001E-01     4.924726E-02     0.000000E+00
+    WIND  CL         -2.406011E-01    -7.885708E-02     3.351512E-02     4.021816E-01    -4.920830E-02     0.000000E+00
+ 
+    BODY  CMX        -1.193452E-09     9.865243E-10     1.166318E-15     0.000000E+00     2.069293E-10    -6.115568E-19
+    WIND  CM-ROLL     1.225187E-09    -1.115949E-09     1.679982E-11     2.016119E-10    -2.940504E-10     5.944769E-19
+ 
+    BODY  CMY         1.849686E-03     4.827894E-02    -7.634307E-03    -9.161170E-02     3.384877E-02    -6.938894E-18
+    WIND  CM-PITCH    1.849686E-03     4.827894E-02    -7.634307E-03    -9.161170E-02     3.384877E-02    -6.938894E-18
+ 
+    BODY  CMZ         9.239743E-10    -6.023279E-10    -5.298699E-17     0.000000E+00    -3.216465E-10    -4.172609E-19
+    WIND  CM-YAW     -8.757750E-10     5.626135E-10     6.556160E-18     0.000000E+00     3.131616E-10     4.412546E-19
+ 
+
+
+    AERODYNAMIC MONITOR POINT TOTAL VEHICLE COEFFICIENTS:
+          AXIS         RIGID AIR  +  RESTRAINED INCR.  -  INERTIAL  +   RIGID-APPLIED + RESTRAINED INCR.  =  BALANCE
+          ----         ---------     ----------------     --------      -------------   ----------------     -------
+    BODY  CX          0.000000E+00     0.000000E+00           N/A              N/A        0.000000E+00     0.000000E+00
+    WIND  CD          9.577193E-03     3.138928E-03           N/A              N/A        1.958750E-03     1.467487E-02
+ 
+    BODY  CY         -4.075113E-09     2.759839E-09           N/A              N/A        1.315274E-09     2.248760E-16
+    WIND  CY-WIND    -4.054036E-09     2.766747E-09           N/A              N/A        1.319585E-09     3.229554E-11
+ 
+    BODY  CZ          2.407916E-01     7.891953E-02           N/A              N/A        4.924726E-02     3.689584E-01
+    WIND  CL         -2.406011E-01    -7.885708E-02           N/A              N/A       -4.920830E-02    -3.686664E-01
+ 
+    BODY  CMX        -1.193452E-09     9.865243E-10           N/A              N/A        2.069293E-10     1.133099E-15
+    WIND  CM-ROLL     1.225187E-09    -1.115949E-09           N/A              N/A       -2.940504E-10    -1.848120E-10
+ 
+    BODY  CMY         1.849684E-03     4.827894E-02           N/A              N/A        3.384877E-02     8.397739E-02
+    WIND  CM-PITCH    1.849684E-03     4.827894E-02           N/A              N/A        3.384877E-02     8.397739E-02
+ 
+    BODY  CMZ         9.239743E-10    -6.023279E-10           N/A              N/A       -3.216465E-10    -4.002046E-17
+    WIND  CM-YAW     -8.757750E-10     5.626134E-10           N/A              N/A        3.131616E-10    -5.078834E-18
+ 
+1    EXAMPLE HA144F: FSW WITH FUSELAGE, 3 CONTROLS & 2 STOR HA144F          OCTOBER  18, 2016  MSC Nastran  5/30/13   PAGE    16
+      UNSYMMETRIC FLIGHT CONDITIONS, DOUBLET-LATTICE AERO                                                                           
+0     FULL-SPAN MODEL WITH DISPLACED CANARD                                                                  SUBCASE 1              
+
+                              S T R U C T U R A L   M O N I T O R   P O I N T   I N T E G R A T E D   L O A D S
+                         CONFIGURATION = AEROSG2D     XY-SYMMETRY = ASYMMETRIC     XZ-SYMMETRY = ASYMMETRIC
+                                           MACH = 9.000000E-01                Q = 1.200000E+03
+
+        CONTROLLER STATE:
+        ANGLEA   =  -3.9784E-02        URDD3    =  -1.0000E+00        ELEV     =  -4.6032E-01        ELEV_R   =  -4.6032E-01
+
+        MONITOR POINT NAME = AEROSG2D          COMPONENT =                   CLASS = COEFFICIENT               
+        LABEL = Full Vehicle Integrated Loads                           
+         CP =      100          X =  0.00000E+00          Y =  0.00000E+00          Z =  0.00000E+00          CD =      100
+
+          AXIS      RIGID AIR       ELASTIC REST.      INERTIAL      RIGID APPLIED    REST. APPLIED   
+          ----    -------------    -------------    -------------    -------------    -------------   
+           CX     0.000000E+00     0.000000E+00     7.874061E-12     0.000000E+00     0.000000E+00
+           CY    -1.956054E-03    -6.313315E-04     1.041320E-10     0.000000E+00     6.313316E-04
+           CZ     1.155800E+05     1.534613E+05    -1.610000E+04    -1.932000E+05    -1.695613E+05
+           CMX   -2.291429E-02    -3.973021E-03     2.239331E-08     0.000000E+00     3.973043E-03
+           CMY    8.878495E+03     2.406174E+05    -3.664467E+04    -4.397362E+05    -2.772621E+05
+           CMZ    1.774031E-02     6.175611E-03    -1.017350E-09     0.000000E+00    -6.175612E-03
+1    EXAMPLE HA144F: FSW WITH FUSELAGE, 3 CONTROLS & 2 STOR HA144F          OCTOBER  18, 2016  MSC Nastran  5/30/13   PAGE    17
+      UNSYMMETRIC FLIGHT CONDITIONS, DOUBLET-LATTICE AERO                                                                           
+0     FULL-SPAN MODEL WITH DISPLACED CANARD                                                                  SUBCASE 1              
+
+                              A E R O D Y N A M I C   M O N I T O R   P O I N T   I N T E G R A T E D   L O A D S
+                         CONFIGURATION = AEROSG2D     XY-SYMMETRY = ASYMMETRIC     XZ-SYMMETRY = ASYMMETRIC
+                                           MACH = 9.000000E-01                Q = 1.200000E+03
+
+        CONTROLLER STATE:
+        ANGLEA   =  -3.9784E-02        URDD3    =  -1.0000E+00        ELEV     =  -4.6032E-01        ELEV_R   =  -4.6032E-01
+
+        MONITOR POINT NAME = AEROSG2D          COMPONENT =                   CLASS = COEFFICIENT               
+        LABEL = Full Vehicle Integrated Loads                           
+         CP =      100          X =  0.00000E+00          Y =  0.00000E+00          Z =  0.00000E+00          CD =      100
+
+          AXIS      RIGID AIR       ELASTIC REST.   REST. APPLIED   
+          ----    -------------    -------------    -------------   
+           CX     0.000000E+00     0.000000E+00     0.000000E+00
+           CY    -1.956054E-03    -6.313315E-04     6.313316E-04
+           CZ     1.155800E+05     1.534613E+05     2.363869E+04
+           CMX   -2.291429E-02    -3.973021E-03     3.973043E-03
+           CMY    8.878485E+03     2.406174E+05     1.624741E+05
+           CMZ    1.774031E-02     6.175611E-03    -6.175612E-03
+
+        MONITOR POINT NAME = AILERON           COMPONENT = 1100              CLASS = HINGE MOMENT              
+        LABEL = AILERON  - Control Surface Hinge Moment                 
+         CP =      110          X =  0.00000E+00          Y =  0.00000E+00          Z =  0.00000E+00          CD =      110
+
+          AXIS      RIGID AIR       ELASTIC REST.   REST. APPLIED   
+          ----    -------------    -------------    -------------   
+           CMY   -6.797896E+02    -1.109445E+03    -2.732410E+02
+
+        MONITOR POINT NAME = ALER_R            COMPONENT = 2100              CLASS = HINGE MOMENT              
+        LABEL = ALER_R   - Control Surface Hinge Moment                 
+         CP =      210          X =  0.00000E+00          Y =  0.00000E+00          Z =  0.00000E+00          CD =      210
+
+          AXIS      RIGID AIR       ELASTIC REST.   REST. APPLIED   
+          ----    -------------    -------------    -------------   
+           CMY    6.797894E+02     1.109445E+03     2.732410E+02
+
+        MONITOR POINT NAME = ELEV              COMPONENT = 1000              CLASS = HINGE MOMENT              
+        LABEL = ELEV     - Control Surface Hinge Moment                 
+         CP =       90          X =  0.00000E+00          Y =  0.00000E+00          Z =  0.00000E+00          CD =       90
+
+          AXIS      RIGID AIR       ELASTIC REST.   REST. APPLIED   
+          ----    -------------    -------------    -------------   
+           CMY   -9.087686E+04    -9.094287E+04     1.816266E+02
+
+        MONITOR POINT NAME = ELEV_R            COMPONENT = 2000              CLASS = HINGE MOMENT              
+        LABEL = ELEV_R   - Control Surface Hinge Moment                 
+         CP =       90          X =  0.00000E+00          Y =  0.00000E+00          Z =  0.00000E+00          CD =       90
+
+          AXIS      RIGID AIR       ELASTIC REST.   REST. APPLIED   
+          ----    -------------    -------------    -------------   
+           CMY   -9.087686E+04    -9.094287E+04     1.816266E+02
+
+        MONITOR POINT NAME = RUDDER            COMPONENT = 3000              CLASS = HINGE MOMENT              
+        LABEL = RUDDER   - Control Surface Hinge Moment                 
+         CP =      301          X =  0.00000E+00          Y =  0.00000E+00          Z =  0.00000E+00          CD =      301
+
+          AXIS      RIGID AIR       ELASTIC REST.   REST. APPLIED   
+          ----    -------------    -------------    -------------   
+           CMY    5.754312E-06     1.187120E-05     5.133679E-06
+
+        MONCNCM NAME =       ALL               INT GROUP ID =     1          CLASS = STRIP                     
+        LABEL = ALL STRIPS                                              
+         CP =        1          AERODYNAMIC COORDINATE SYSTEM 
+
+                                                                               FORCE                    MOMENT
+ STRP     YS          ZS        XREF          REFC         REFS         RIGID       ELASTIC      RIGID       ELASTIC   
+ ____  __________  __________  __________  ___________  ___________  ___________  ___________  ___________  ___________
+    1  -2.250E+00   1.500E+00   0.000E+00   1.0000E+01   5.0001E+00  -6.8127E-01  -6.9297E-01  -9.0688E+00  -9.3400E-02
+    2  -3.750E+00   0.000E+00   1.283E+01   1.0000E+01   2.5000E+01   1.4203E-01   6.0503E-02  -7.4520E+01   1.9852E-02
+    3  -3.750E+00   1.500E+00   0.000E+00   1.0000E+01   2.5000E+01  -6.3867E-01  -6.4981E-01  -8.4817E+00  -8.7361E-02
+    4  -6.250E+00   0.000E+00   1.139E+01   1.0000E+01   2.5000E+01  -1.5961E-01  -2.4897E-01  -7.4411E+01  -3.1713E-02
+    5  -8.750E+00   0.000E+00   9.948E+00   1.0000E+01   2.5000E+01  -2.2754E-01  -3.1942E-01  -7.0816E+01  -2.7531E-02
+    6  -1.000E+01  -5.000E-01   1.048E+01   5.0000E+00   5.0000E+00   5.2968E-02   5.8067E-02   1.8919E+01   1.0972E-02
+    7  -1.125E+01   2.500E-01   8.505E+00   1.0000E+01   2.5495E+01  -2.1061E-01  -3.0061E-01  -5.7755E+01  -1.6815E-02
+    8  -1.375E+01   7.500E-01   7.061E+00   1.0000E+01   2.5495E+01  -1.9443E-01  -2.7702E-01  -5.0365E+01  -6.9770E-03
+    9  -1.625E+01   1.250E+00   5.618E+00   1.0000E+01   2.5495E+01  -1.6181E-01  -2.3143E-01  -4.0789E+01  -2.9557E-04
+   10  -1.875E+01   1.750E+00   4.175E+00   1.0000E+01   2.5495E+01  -1.1066E-01  -1.5929E-01  -2.7657E+01   2.4603E-03
+   11   0.000E+00   3.750E+00   1.717E+01   1.0000E+01   2.5000E+01  -1.7065E-08  -1.1711E-08   3.7823E-06  -7.6177E-10
+   12   0.000E+00   6.250E+00   1.861E+01   1.0000E+01   2.5000E+01  -2.3824E-08  -2.0062E-08   2.5611E-06  -9.0128E-11
+   13   0.000E+00   8.750E+00   2.005E+01   1.0000E+01   2.5000E+01  -2.0724E-08  -1.8522E-08   1.4412E-06  -3.6284E-10
+   14   2.250E+00   1.500E+00   0.000E+00   1.0000E+01   5.0001E+00  -6.8127E-01  -6.9297E-01  -9.0688E+00  -9.3400E-02
+   15   3.750E+00   0.000E+00   1.283E+01   1.0000E+01   2.5000E+01   1.4203E-01   6.0503E-02  -7.4520E+01   1.9852E-02
+   16   3.750E+00   1.500E+00   0.000E+00   1.0000E+01   2.5000E+01  -6.3867E-01  -6.4981E-01  -8.4817E+00  -8.7361E-02
+   17   6.250E+00   0.000E+00   1.139E+01   1.0000E+01   2.5000E+01  -1.5961E-01  -2.4897E-01  -7.4411E+01  -3.1713E-02
+   18   8.750E+00   0.000E+00   9.948E+00   1.0000E+01   2.5000E+01  -2.2754E-01  -3.1942E-01  -7.0815E+01  -2.7531E-02
+   19   1.000E+01  -5.000E-01   1.048E+01   5.0000E+00   5.0000E+00  -5.2968E-02  -5.8066E-02  -1.8919E+01  -1.0972E-02
+   20   1.125E+01   2.500E-01   8.505E+00   1.0000E+01   2.5495E+01  -2.1061E-01  -3.0061E-01  -5.7755E+01  -1.6815E-02
+   21   1.375E+01   7.500E-01   7.061E+00   1.0000E+01   2.5495E+01  -1.9443E-01  -2.7702E-01  -5.0365E+01  -6.9769E-03
+   22   1.625E+01   1.250E+00   5.618E+00   1.0000E+01   2.5495E+01  -1.6181E-01  -2.3143E-01  -4.0789E+01  -2.9559E-04
+   23   1.875E+01   1.750E+00   4.175E+00   1.0000E+01   2.5495E+01  -1.1066E-01  -1.5929E-01  -2.7657E+01   2.4603E-03
+1    EXAMPLE HA144F: FSW WITH FUSELAGE, 3 CONTROLS & 2 STOR HA144F          OCTOBER  18, 2016  MSC Nastran  5/30/13   PAGE    18
+      UNSYMMETRIC FLIGHT CONDITIONS, DOUBLET-LATTICE AERO                                                                           
+0     FULL-SPAN MODEL WITH DISPLACED CANARD                                                                  SUBCASE 2              
+
+    N O N - D I M E N S I O N A L   S T A B I L I T Y   A N D   C O N T R O L   D E R I V A T I V E   C O E F F I C I E N T S
+
+                         CONFIGURATION = AEROSG2D     XY-SYMMETRY = ASYMMETRIC     XZ-SYMMETRY = ASYMMETRIC
+                                         MACH = 9.0000E-01                    Q = 1.2000E+03
+                         CHORD = 1.0000E+01           SPAN = 4.0000E+01            AREA = 4.0000E+02
+
+
+                TRANSFORMATION FROM BASIC TO REFERENCE COORDINATES:
+
+              { X }        [ -1.0000   0.0000   0.0000  ]  { X }         { 1.5000E+01 }
+              { Y }    =   [  0.0000   1.0000   0.0000  ]  { Y }      +  { 0.0000E+00 }
+              { Z }REF     [  0.0000   0.0000  -1.0000  ]  { Z }BAS      { 0.0000E+00 }
+
+
+
+
+    CONTROLLER STATE: INTERCEPT ONLY, ALL CONTROLLERS ARE ZERO
+
+    TRIM VARIABLE   COEFFICIENT              RIGID                         ELASTIC                          INERTIAL
+                                   UNSPLINED        SPLINED       RESTRAINED      UNRESTRAINED     RESTRAINED      UNRESTRAINED
+
+    REF. COEFF.      CX         0.000000E+00    0.000000E+00     0.000000E+00    0.000000E+00     0.000000E+00    7.101391E-05
+                     CY        -2.172674E-10   -2.172674E-10    -2.875785E-10   -3.674912E-10     0.000000E+00   -3.674912E-10
+                     CZ        -7.502088E-03   -7.502088E-03    -9.901989E-03   -1.222186E-02     0.000000E+00   -1.222186E-02
+                     CMX       -2.783958E-11   -2.783958E-11    -6.666479E-11   -7.060742E-11     0.000000E+00   -7.060715E-11
+                     CMY       -4.898731E-03   -4.898731E-03    -6.364543E-03   -7.934161E-03     0.000000E+00   -7.934161E-03
+                     CMZ        5.341198E-11    5.341198E-11     6.615639E-11    8.775354E-11     0.000000E+00    8.775355E-11
+
+    ANGLEA           CX         0.000000E+00    0.000000E+00     0.000000E+00    0.000000E+00     0.000000E+00    4.076473E-02
+                     CY        -1.407018E-07   -1.407018E-07    -1.835068E-07   -2.345268E-07     0.000000E+00   -2.345268E-07
+                     CZ        -5.040129E+00   -5.040129E+00    -6.537388E+00   -7.992976E+00     0.000000E+00   -7.992976E+00
+                     CMX       -1.559699E-08   -1.559699E-08    -3.941162E-08   -4.230653E-08     0.000000E+00   -4.230637E-08
+                     CMY       -2.877635E+00   -2.877635E+00    -3.791211E+00   -4.776923E+00     0.000000E+00   -4.776923E+00
+                     CMZ        3.819417E-08    3.819417E-08     4.587442E-08    5.966058E-08     0.000000E+00    5.966059E-08
+
+    PITCH            CX         0.000000E+00    0.000000E+00     0.000000E+00    0.000000E+00     0.000000E+00    1.231187E-01
+                     CY        -3.644770E-07   -3.644770E-07    -3.931017E-07   -5.189875E-07     0.000000E+00   -5.189875E-07
+                     CZ        -1.198419E+01   -1.198419E+01    -1.324751E+01   -1.683722E+01     0.000000E+00   -1.683722E+01
+                     CMX        1.210000E-08    1.210000E-08    -1.927319E-08   -3.694160E-08     0.000000E+00   -3.694130E-08
+                     CMY       -9.632812E+00   -9.632812E+00    -1.035169E+01   -1.276509E+01     0.000000E+00   -1.276509E+01
+                     CMZ        1.041015E-07    1.041015E-07     1.064095E-07    1.389850E-07     0.000000E+00    1.389850E-07
+
+    URDD3            CX         0.000000E+00    0.000000E+00     0.000000E+00    0.000000E+00    -1.640429E-17    0.000000E+00
+                     CY         0.000000E+00    0.000000E+00     1.096061E-10    0.000000E+00    -2.169416E-16    0.000000E+00
+                     CZ         0.000000E+00    0.000000E+00     4.103938E-03    0.000000E+00     3.354167E-02    0.000000E+00
+                     CMX        0.000000E+00    0.000000E+00     1.724437E-11    0.000000E+00    -1.166318E-15    0.000000E+00
+                     CMY        0.000000E+00    0.000000E+00     2.820730E-03    0.000000E+00     7.634307E-03    0.000000E+00
+                     CMZ        0.000000E+00    0.000000E+00    -2.680381E-11    0.000000E+00     5.298699E-17    0.000000E+00
+1    EXAMPLE HA144F: FSW WITH FUSELAGE, 3 CONTROLS & 2 STOR HA144F          OCTOBER  18, 2016  MSC Nastran  5/30/13   PAGE    19
+      UNSYMMETRIC FLIGHT CONDITIONS, DOUBLET-LATTICE AERO                                                                           
+0     FULL-SPAN MODEL WITH DISPLACED CANARD                                                                  SUBCASE 2              
+
+    TRIM VARIABLE   COEFFICIENT              RIGID                         ELASTIC                          INERTIAL
+                                   UNSPLINED        SPLINED       RESTRAINED      UNRESTRAINED     RESTRAINED      UNRESTRAINED
+
+    URDD5            CX         0.000000E+00    0.000000E+00     0.000000E+00    0.000000E+00    -5.208333E-03    0.000000E+00
+                     CY         0.000000E+00    0.000000E+00     2.237901E-09    0.000000E+00    -1.996204E-15    0.000000E+00
+                     CZ         0.000000E+00    0.000000E+00     8.055958E-02    0.000000E+00     7.634307E-02    0.000000E+00
+                     CMX        0.000000E+00    0.000000E+00     4.511595E-10    0.000000E+00    -1.074405E-14    0.000000E+00
+                     CMY        0.000000E+00    0.000000E+00     5.239134E-02    0.000000E+00     3.952647E-01    0.000000E+00
+                     CMZ        0.000000E+00    0.000000E+00    -5.279253E-10    0.000000E+00     4.903751E-16    0.000000E+00
+
+    ELEV             CX         0.000000E+00    0.000000E+00     0.000000E+00    0.000000E+00     0.000000E+00   -1.666022E-03
+                     CY        -3.645290E-03   -3.645290E-03    -4.944192E-03   -3.926305E-03     0.000000E+00   -3.926305E-03
+                     CZ        -5.189399E-02   -5.189399E-02    -7.997872E-02   -7.224647E-02     0.000000E+00   -7.224647E-02
+                     CMX        3.166315E-03    3.166315E-03     4.273698E-03    3.891329E-03     0.000000E+00    3.891329E-03
+                     CMY        1.170229E-01    1.170229E-01     9.940528E-02    1.044337E-01     0.000000E+00    1.044337E-01
+                     CMZ       -6.379589E-03   -6.379589E-03    -5.862431E-03   -6.230293E-03     0.000000E+00   -6.230293E-03
+
+    SIDES            CX         0.000000E+00    0.000000E+00     0.000000E+00    0.000000E+00     0.000000E+00    2.350241E-10
+                     CY        -7.493701E-01   -7.493701E-01    -7.137760E-01   -7.576050E-01     0.000000E+00   -7.576050E-01
+                     CZ        -1.019114E-08   -1.019114E-08    -5.254216E-10   -2.102834E-09     0.000000E+00   -2.102863E-09
+                     CMX       -1.354676E-01   -1.354676E-01    -1.477701E-01   -1.363622E-01     0.000000E+00   -1.363622E-01
+                     CMY       -2.281555E-08   -2.281555E-08    -1.281925E-08   -1.752976E-08     0.000000E+00   -1.752979E-08
+                     CMZ        1.900326E-01    1.900326E-01     1.774890E-01    1.929883E-01     0.000000E+00    1.929883E-01
+
+    YAW              CX         0.000000E+00    0.000000E+00     0.000000E+00    0.000000E+00     0.000000E+00   -4.892733E-10
+                     CY         7.217303E-01    7.217303E-01     6.687397E-01    7.260462E-01     0.000000E+00    7.260462E-01
+                     CZ         3.482892E-08    3.482892E-08     2.046702E-08    2.992715E-08     0.000000E+00    2.992718E-08
+                     CMX        9.353673E-02    9.353673E-02     8.854351E-02    8.711861E-02     0.000000E+00    8.711861E-02
+                     CMY        4.450039E-08    4.450039E-08     3.314487E-08    4.230965E-08     0.000000E+00    4.230969E-08
+                     CMZ       -2.584813E-01   -2.584813E-01    -2.425676E-01   -2.609810E-01     0.000000E+00   -2.609810E-01
+
+    ROLL             CX         0.000000E+00    0.000000E+00     0.000000E+00    0.000000E+00     0.000000E+00    7.786868E-10
+                     CY        -1.516381E-01   -1.516381E-01    -1.633789E-01   -1.590035E-01     0.000000E+00   -1.590035E-01
+                     CZ        -1.129761E-07   -1.129761E-07    -2.683299E-07   -3.003761E-07     0.000000E+00   -3.003761E-07
+                     CMX       -4.362885E-01   -4.362885E-01    -5.353553E-01   -4.651975E-01     0.000000E+00   -4.651975E-01
+                     CMY       -9.604447E-09   -9.604449E-09    -9.248430E-08   -1.248646E-07     0.000000E+00   -1.248645E-07
+                     CMZ       -9.201576E-04   -9.201568E-04    -9.716503E-03   -2.064238E-03     0.000000E+00   -2.064238E-03
+
+    URDD2            CX         0.000000E+00    0.000000E+00     0.000000E+00    0.000000E+00    -3.810944E-16    0.000000E+00
+                     CY         0.000000E+00    0.000000E+00     7.924407E-04    0.000000E+00     3.354167E-02    0.000000E+00
+                     CZ         0.000000E+00    0.000000E+00     1.183159E-11    0.000000E+00    -1.738221E-27    0.000000E+00
+                     CMX        0.000000E+00    0.000000E+00     1.503346E-04    0.000000E+00     1.302083E-04    0.000000E+00
+                     CMY        0.000000E+00    0.000000E+00     2.412312E-11    0.000000E+00     3.245506E-17    0.000000E+00
+                     CMZ        0.000000E+00    0.000000E+00    -2.422817E-04    0.000000E+00    -1.908577E-03    0.000000E+00
+1    EXAMPLE HA144F: FSW WITH FUSELAGE, 3 CONTROLS & 2 STOR HA144F          OCTOBER  18, 2016  MSC Nastran  5/30/13   PAGE    20
+      UNSYMMETRIC FLIGHT CONDITIONS, DOUBLET-LATTICE AERO                                                                           
+0     FULL-SPAN MODEL WITH DISPLACED CANARD                                                                  SUBCASE 2              
+
+    TRIM VARIABLE   COEFFICIENT              RIGID                         ELASTIC                          INERTIAL
+                                   UNSPLINED        SPLINED       RESTRAINED      UNRESTRAINED     RESTRAINED      UNRESTRAINED
+
+    URDD4            CX         0.000000E+00    0.000000E+00     0.000000E+00    0.000000E+00    -1.653905E-17    0.000000E+00
+                     CY         0.000000E+00    0.000000E+00     1.123463E-04    0.000000E+00     5.208333E-03    0.000000E+00
+                     CZ         0.000000E+00    0.000000E+00    -5.516313E-10    0.000000E+00    -2.462428E-14    0.000000E+00
+                     CMX        0.000000E+00    0.000000E+00    -3.891727E-03    0.000000E+00     2.627604E-02    0.000000E+00
+                     CMY        0.000000E+00    0.000000E+00     2.037530E-10    0.000000E+00    -2.369970E-14    0.000000E+00
+                     CMZ        0.000000E+00    0.000000E+00    -5.270857E-04    0.000000E+00    -1.061087E-03    0.000000E+00
+
+    URDD6            CX         0.000000E+00    0.000000E+00     0.000000E+00    0.000000E+00     3.313185E-15    0.000000E+00
+                     CY         0.000000E+00    0.000000E+00    -2.387613E-02    0.000000E+00    -7.634307E-02    0.000000E+00
+                     CZ         0.000000E+00    0.000000E+00    -1.215709E-11    0.000000E+00     1.337525E-17    0.000000E+00
+                     CMX        0.000000E+00    0.000000E+00    -4.560409E-03    0.000000E+00    -1.061087E-03    0.000000E+00
+                     CMY        0.000000E+00    0.000000E+00    -5.015473E-10    0.000000E+00    -2.751940E-16    0.000000E+00
+                     CMZ        0.000000E+00    0.000000E+00     6.942536E-03    0.000000E+00     1.246235E-01    0.000000E+00
+
+    AILERON          CX         0.000000E+00    0.000000E+00     0.000000E+00    0.000000E+00     0.000000E+00   -6.679025E-03
+                     CY         2.455903E-02    2.455903E-02     2.620930E-02    2.485913E-02     0.000000E+00    2.485913E-02
+                     CZ         6.192241E-01    6.192241E-01     6.439628E-01    8.387171E-01     0.000000E+00    8.387171E-01
+                     CMX        1.401520E-01    1.401520E-01     1.532427E-01    1.331393E-01     0.000000E+00    1.331393E-01
+                     CMY        5.342677E-01    5.342677E-01     5.455392E-01    6.754915E-01     0.000000E+00    6.754915E-01
+                     CMZ        2.583197E-03    2.583197E-03     3.634065E-03    1.492682E-03     0.000000E+00    1.492682E-03
+
+    RUDDER           CX         0.000000E+00    0.000000E+00     0.000000E+00    0.000000E+00     0.000000E+00   -7.893632E-11
+                     CY         2.297473E-01    2.297473E-01     1.926551E-01    2.195246E-01     0.000000E+00    2.195246E-01
+                     CZ         6.053473E-09    6.053473E-09     3.011328E-09    4.279324E-09     0.000000E+00    4.279341E-09
+                     CMX        3.164923E-02    3.164923E-02     2.404624E-02    2.562781E-02     0.000000E+00    2.562781E-02
+                     CMY        7.542615E-09    7.542615E-09     4.809649E-09    6.700840E-09     0.000000E+00    6.700856E-09
+                     CMZ       -1.170619E-01   -1.170619E-01    -1.058725E-01   -1.140591E-01     0.000000E+00   -1.140591E-01
+
+    ELEV_R           CX         0.000000E+00    0.000000E+00     0.000000E+00    0.000000E+00     0.000000E+00   -1.666022E-03
+                     CY         3.645287E-03    3.645287E-03     4.944188E-03    3.926300E-03     0.000000E+00    3.926300E-03
+                     CZ        -5.189398E-02   -5.189398E-02    -7.997871E-02   -7.224646E-02     0.000000E+00   -7.224646E-02
+                     CMX       -3.166316E-03   -3.166316E-03    -4.273698E-03   -3.891330E-03     0.000000E+00   -3.891330E-03
+                     CMY        1.170229E-01    1.170229E-01     9.940529E-02    1.044338E-01     0.000000E+00    1.044338E-01
+                     CMZ        6.379593E-03    6.379593E-03     5.862435E-03    6.230297E-03     0.000000E+00    6.230297E-03
+
+    ALER_R           CX         0.000000E+00    0.000000E+00     0.000000E+00    0.000000E+00     0.000000E+00    6.679025E-03
+                     CY         2.455897E-02    2.455897E-02     2.620924E-02    2.485906E-02     0.000000E+00    2.485906E-02
+                     CZ        -6.192242E-01   -6.192242E-01    -6.439628E-01   -8.387171E-01     0.000000E+00   -8.387171E-01
+                     CMX        1.401520E-01    1.401520E-01     1.532427E-01    1.331392E-01     0.000000E+00    1.331392E-01
+                     CMY       -5.342678E-01   -5.342678E-01    -5.455393E-01   -6.754916E-01     0.000000E+00   -6.754916E-01
+                     CMZ        2.583212E-03    2.583212E-03     3.634079E-03    1.492700E-03     0.000000E+00    1.492700E-03
+1    EXAMPLE HA144F: FSW WITH FUSELAGE, 3 CONTROLS & 2 STOR HA144F          OCTOBER  18, 2016  MSC Nastran  5/30/13   PAGE    21
+      UNSYMMETRIC FLIGHT CONDITIONS, DOUBLET-LATTICE AERO                                                                           
+0     FULL-SPAN MODEL WITH DISPLACED CANARD                                                                  SUBCASE 2              
+
+          N O N - D I M E N S I O N A L    H I N G E    M O M E N T    D E R I V A T I V E   C O E F F I C I E N T S
+
+
+
+                         CONFIGURATION = AEROSG2D     XY-SYMMETRY = ASYMMETRIC     XZ-SYMMETRY = ASYMMETRIC
+                                         MACH = 9.0000E-01                    Q = 1.2000E+03
+
+          CONTROL SURFACE = ELEV         REFERENCE CHORD LENGTH =  1.000000E+00     REFERENCE AREA =  1.000000E+00
+
+              TRIM VARIABLE               RIGID                             ELASTIC                            INERTIAL
+                                                                 RESTRAINED      UNRESTRAINED         RESTRAINED      UNRESTRAINED
+              AT REFERENCE        -8.813941E-03                -1.214127E-02   -2.066324E-02         0.000000E+00    0.000000E+00
+              ANGLEA               1.691471E+02                 1.674710E+02    1.623227E+02         0.000000E+00    0.000000E+00
+              PITCH               -1.438620E+02                -1.458722E+02   -1.564436E+02         0.000000E+00    0.000000E+00
+              URDD3                0.000000E+00                 1.261296E-02    0.000000E+00         0.000000E+00    0.000000E+00
+              URDD5                0.000000E+00                 4.128597E-02    0.000000E+00         0.000000E+00    0.000000E+00
+              ELEV                 1.421520E+02                 1.423976E+02    1.425286E+02         0.000000E+00    0.000000E+00
+              SIDES                2.525363E+01                 2.535329E+01    2.529931E+01         0.000000E+00    0.000000E+00
+              YAW                  5.005383E+00                 4.865306E+00    4.914598E+00         0.000000E+00    0.000000E+00
+              ROLL                 2.173693E+01                 2.100862E+01    2.138058E+01         0.000000E+00    0.000000E+00
+              URDD2                0.000000E+00                 9.189175E-03    0.000000E+00         0.000000E+00    0.000000E+00
+              URDD4                0.000000E+00                -2.917762E-02    0.000000E+00         0.000000E+00    0.000000E+00
+              URDD6                0.000000E+00                 2.133843E-03    0.000000E+00         0.000000E+00    0.000000E+00
+              AILERON              4.148142E-01                 5.674087E-01    7.539526E-01         0.000000E+00    0.000000E+00
+              RUDDER              -2.249527E-02                -1.662712E-01   -2.666610E-01         0.000000E+00    0.000000E+00
+              ELEV_R               7.727103E+00                 7.711182E+00    7.852076E+00         0.000000E+00    0.000000E+00
+              ALER_R               1.536865E-01                 2.366319E-01   -1.985966E-01         0.000000E+00    0.000000E+00
+
+          CONTROL SURFACE = AILERON      REFERENCE CHORD LENGTH =  1.000000E+00     REFERENCE AREA =  1.000000E+00
+
+              TRIM VARIABLE               RIGID                             ELASTIC                            INERTIAL
+                                                                 RESTRAINED      UNRESTRAINED         RESTRAINED      UNRESTRAINED
+              AT REFERENCE         3.445224E-02                 4.537074E-02    5.609641E-02         0.000000E+00    0.000000E+00
+              ANGLEA               2.180094E+01                 2.861031E+01    3.533903E+01         0.000000E+00    0.000000E+00
+              PITCH                9.990192E+01                 1.055990E+02    1.221708E+02         0.000000E+00    0.000000E+00
+              URDD3                0.000000E+00                -1.897506E-02    0.000000E+00         0.000000E+00    0.000000E+00
+              URDD5                0.000000E+00                -3.697813E-01    0.000000E+00         0.000000E+00    0.000000E+00
+              ELEV                -5.853266E-01                -4.823066E-01   -5.091072E-01         0.000000E+00    0.000000E+00
+              SIDES               -4.868264E-01                -1.697987E-01   -5.034003E-01         0.000000E+00    0.000000E+00
+              YAW                 -1.398019E+00                -1.501012E+00   -1.279878E+00         0.000000E+00    0.000000E+00
+              ROLL                 6.021499E+00                 7.565954E+00    6.462220E+00         0.000000E+00    0.000000E+00
+              URDD2                0.000000E+00                 3.399156E-04    0.000000E+00         0.000000E+00    0.000000E+00
+              URDD4                0.000000E+00                 6.247066E-02    0.000000E+00         0.000000E+00    0.000000E+00
+              URDD6                0.000000E+00                -9.951873E-03    0.000000E+00         0.000000E+00    0.000000E+00
+              AILERON             -6.002864E+01                -6.034002E+01   -6.092087E+01         0.000000E+00    0.000000E+00
+              RUDDER               6.474181E-02                 5.731325E-02    1.253664E-01         0.000000E+00    0.000000E+00
+              ELEV_R               6.619518E-03                 1.578440E-01    1.117973E-01         0.000000E+00    0.000000E+00
+              ALER_R               8.316217E-01                 7.338068E-01    1.946588E+00         0.000000E+00    0.000000E+00
+
+          CONTROL SURFACE = RUDDER       REFERENCE CHORD LENGTH =  1.000000E+00     REFERENCE AREA =  1.000000E+00
+
+              TRIM VARIABLE               RIGID                             ELASTIC                            INERTIAL
+                                                                 RESTRAINED      UNRESTRAINED         RESTRAINED      UNRESTRAINED
+              AT REFERENCE        -5.698076E-10                -6.672483E-10   -9.047480E-10         0.000000E+00    0.000000E+00
+              ANGLEA              -2.260733E-07                -2.823584E-07   -4.345111E-07         0.000000E+00    0.000000E+00
+              PITCH               -1.235623E-06                -1.203867E-06   -1.589257E-06         0.000000E+00    0.000000E+00
+              URDD3                0.000000E+00                 3.565057E-10    0.000000E+00         0.000000E+00    0.000000E+00
+              URDD5                0.000000E+00                 6.264985E-09    0.000000E+00         0.000000E+00    0.000000E+00
+              ELEV                -3.139367E-02                -3.299045E-02   -3.156914E-02         0.000000E+00    0.000000E+00
+              SIDES               -2.633105E+00                -2.467452E+00   -2.580033E+00         0.000000E+00    0.000000E+00
+              YAW                 -4.075430E+00                -4.289198E+00   -4.129042E+00         0.000000E+00    0.000000E+00
+              ROLL                -1.308953E-01                -3.111288E-01   -1.826234E-01         0.000000E+00    0.000000E+00
+              URDD2                0.000000E+00                 3.557921E-03    0.000000E+00         0.000000E+00    0.000000E+00
+              URDD4                0.000000E+00                -6.327540E-03    0.000000E+00         0.000000E+00    0.000000E+00
+              URDD6                0.000000E+00                -6.554688E-02    0.000000E+00         0.000000E+00    0.000000E+00
+              AILERON              1.792050E-01                 2.088133E-01    1.711299E-01         0.000000E+00    0.000000E+00
+              RUDDER              -3.347747E+01                -3.355650E+01   -3.348036E+01         0.000000E+00    0.000000E+00
+              ELEV_R               3.139384E-02                 3.299062E-02    3.156931E-02         0.000000E+00    0.000000E+00
+              ALER_R               1.792049E-01                 2.088131E-01    1.711297E-01         0.000000E+00    0.000000E+00
+
+          CONTROL SURFACE = ELEV_R       REFERENCE CHORD LENGTH =  1.000000E+00     REFERENCE AREA =  1.000000E+00
+
+              TRIM VARIABLE               RIGID                             ELASTIC                            INERTIAL
+                                                                 RESTRAINED      UNRESTRAINED         RESTRAINED      UNRESTRAINED
+              AT REFERENCE        -8.813934E-03                -1.214126E-02   -2.066323E-02         0.000000E+00    0.000000E+00
+              ANGLEA               1.691471E+02                 1.674711E+02    1.623227E+02         0.000000E+00    0.000000E+00
+              PITCH               -1.438620E+02                -1.458722E+02   -1.564436E+02         0.000000E+00    0.000000E+00
+              URDD3                0.000000E+00                 1.261296E-02    0.000000E+00         0.000000E+00    0.000000E+00
+              URDD5                0.000000E+00                 4.128589E-02    0.000000E+00         0.000000E+00    0.000000E+00
+              ELEV                 7.727100E+00                 7.711180E+00    7.852073E+00         0.000000E+00    0.000000E+00
+              SIDES               -2.525363E+01                -2.535329E+01   -2.529931E+01         0.000000E+00    0.000000E+00
+              YAW                 -5.005383E+00                -4.865306E+00   -4.914598E+00         0.000000E+00    0.000000E+00
+              ROLL                -2.173693E+01                -2.100862E+01   -2.138059E+01         0.000000E+00    0.000000E+00
+              URDD2                0.000000E+00                -9.189175E-03    0.000000E+00         0.000000E+00    0.000000E+00
+              URDD4                0.000000E+00                 2.917760E-02    0.000000E+00         0.000000E+00    0.000000E+00
+              URDD6                0.000000E+00                -2.133865E-03    0.000000E+00         0.000000E+00    0.000000E+00
+              AILERON             -1.536858E-01                -2.366311E-01    1.985971E-01         0.000000E+00    0.000000E+00
+              RUDDER               2.249527E-02                 1.662712E-01    2.666610E-01         0.000000E+00    0.000000E+00
+              ELEV_R               1.421520E+02                 1.423976E+02    1.425286E+02         0.000000E+00    0.000000E+00
+              ALER_R              -4.148125E-01                -5.674069E-01   -7.539507E-01         0.000000E+00    0.000000E+00
+
+          CONTROL SURFACE = ALER_R       REFERENCE CHORD LENGTH =  1.000000E+00     REFERENCE AREA =  1.000000E+00
+
+              TRIM VARIABLE               RIGID                             ELASTIC                            INERTIAL
+                                                                 RESTRAINED      UNRESTRAINED         RESTRAINED      UNRESTRAINED
+1    EXAMPLE HA144F: FSW WITH FUSELAGE, 3 CONTROLS & 2 STOR HA144F          OCTOBER  18, 2016  MSC Nastran  5/30/13   PAGE    22
+      UNSYMMETRIC FLIGHT CONDITIONS, DOUBLET-LATTICE AERO                                                                           
+0     FULL-SPAN MODEL WITH DISPLACED CANARD                                                                  SUBCASE 2              
+
+          N O N - D I M E N S I O N A L    H I N G E    M O M E N T    D E R I V A T I V E   C O E F F I C I E N T S
+
+
+
+                         CONFIGURATION = AEROSG2D     XY-SYMMETRY = ASYMMETRIC     XZ-SYMMETRY = ASYMMETRIC
+                                         MACH = 9.0000E-01                    Q = 1.2000E+03
+
+          CONTROL SURFACE = ALER_R       REFERENCE CHORD LENGTH =  1.000000E+00     REFERENCE AREA =  1.000000E+00
+
+              TRIM VARIABLE               RIGID                             ELASTIC                            INERTIAL
+                                                                 RESTRAINED      UNRESTRAINED         RESTRAINED      UNRESTRAINED
+              AT REFERENCE        -3.445225E-02                -4.537075E-02   -5.609642E-02         0.000000E+00    0.000000E+00
+              ANGLEA              -2.180095E+01                -2.861032E+01   -3.533903E+01         0.000000E+00    0.000000E+00
+              PITCH               -9.990196E+01                -1.055990E+02   -1.221708E+02         0.000000E+00    0.000000E+00
+              URDD3                0.000000E+00                 1.897507E-02    0.000000E+00         0.000000E+00    0.000000E+00
+              URDD5                0.000000E+00                 3.697814E-01    0.000000E+00         0.000000E+00    0.000000E+00
+              ELEV                -6.619402E-03                -1.578440E-01   -1.117972E-01         0.000000E+00    0.000000E+00
+              SIDES               -4.868292E-01                -1.698011E-01   -5.034030E-01         0.000000E+00    0.000000E+00
+              YAW                 -1.398017E+00                -1.501011E+00   -1.279876E+00         0.000000E+00    0.000000E+00
+              ROLL                 6.021502E+00                 7.565956E+00    6.462221E+00         0.000000E+00    0.000000E+00
+              URDD2                0.000000E+00                 3.399184E-04    0.000000E+00         0.000000E+00    0.000000E+00
+              URDD4                0.000000E+00                 6.247069E-02    0.000000E+00         0.000000E+00    0.000000E+00
+              URDD6                0.000000E+00                -9.951952E-03    0.000000E+00         0.000000E+00    0.000000E+00
+              AILERON              8.316212E-01                 7.338064E-01    1.946588E+00         0.000000E+00    0.000000E+00
+              RUDDER               6.474196E-02                 5.731326E-02    1.253665E-01         0.000000E+00    0.000000E+00
+              ELEV_R               5.853274E-01                 4.823074E-01    5.091080E-01         0.000000E+00    0.000000E+00
+              ALER_R              -6.002867E+01                -6.034005E+01   -6.092090E+01         0.000000E+00    0.000000E+00
+1    EXAMPLE HA144F: FSW WITH FUSELAGE, 3 CONTROLS & 2 STOR HA144F          OCTOBER  18, 2016  MSC Nastran  5/30/13   PAGE    23
+      UNSYMMETRIC FLIGHT CONDITIONS, DOUBLET-LATTICE AERO                                                                           
+0     FULL-SPAN MODEL WITH DISPLACED CANARD                                                                  SUBCASE 2              
+                                                  INTERMEDIATE MATRIX ... HP      
+
+
+                                                            COLUMN      1
+     1                 -4.546921E-11       2.237854E-03       6.292214E-11      -1.218842E-04      -5.662113E-12                  5
+
+                                                            COLUMN      2
+     1                 -3.123525E-08       1.414439E+00       3.873238E-08      -7.417408E-02      -4.208027E-09                  5
+
+                                                            COLUMN      3
+     1                 -7.442513E-08       2.969789E+00       3.004865E-08      -2.094978E-01      -1.169983E-08                  5
+
+                                                            COLUMN      4
+     1                 -1.854029E-11      -5.562317E-03       1.757095E-11       1.233582E-04      -2.547646E-12                  5
+
+                                                            COLUMN      5
+     1                 -3.635623E-10       1.540755E-03       4.385751E-10       7.445705E-03      -4.712759E-11                  5
+
+                                                            COLUMN      6
+     1                  2.051413E-03      -3.208608E-03      -8.137929E-03       1.146821E-03       7.283070E-04                  5
+
+                                                            COLUMN      7
+     1                 -1.529903E-01       1.750856E-09       1.071376E-01      -3.567264E-10      -2.518214E-02                  5
+
+                                                            COLUMN      8
+     1                  1.536015E-01      -6.545626E-09      -5.494779E-02       8.107392E-10       3.605023E-02                  5
+
+                                                            COLUMN      9
+     1                  1.071310E-02       6.062957E-08       4.499268E-01      -1.252380E-09       7.624566E-03                  5
+
+                                                            COLUMN     10
+     1                  5.622060E-03       4.732933E-12       2.100416E-05      -6.193322E-13       3.169009E-04                  5
+
+                                                            COLUMN     11
+     1                  1.395212E-04      -1.230035E-10      -2.456579E-02      -7.662716E-12      -1.693952E-05                  5
+
+                                                            COLUMN     12
+     1                 -1.966925E-02      -6.385432E-11      -2.716776E-03       1.429902E-11      -1.675671E-02                  5
+
+                                                            COLUMN     13
+     1                 -2.678064E-03      -1.777589E-01      -1.220825E-01       1.238678E-02      -1.876654E-03                  5
+
+                                                            COLUMN     14
+     1                  7.398352E-02      -8.063840E-10      -1.039103E-02       1.122802E-10       1.980788E-02                  5
+
+                                                            COLUMN     15
+     1                 -2.051415E-03      -3.208611E-03       8.137931E-03       1.146821E-03      -7.283075E-04                  5
+
+                                                            COLUMN     16
+     1                 -2.678074E-03       1.777589E-01      -1.220825E-01      -1.238679E-02      -1.876656E-03                  5
+
+1    EXAMPLE HA144F: FSW WITH FUSELAGE, 3 CONTROLS & 2 STOR HA144F          OCTOBER  18, 2016  MSC Nastran  5/30/13   PAGE    24
+      UNSYMMETRIC FLIGHT CONDITIONS, DOUBLET-LATTICE AERO                                                                           
+0     FULL-SPAN MODEL WITH DISPLACED CANARD                                                                  SUBCASE 2              
+                                                  INTERMEDIATE MATRIX ... UX      
+
+
+                                                            COLUMN      1
+     1         1.000000E+00      -3.978428E-02       0.000000E+00      -1.000000E+00       0.000000E+00      -4.603211E-01        6
+     7        -1.876913E-02      -1.315084E-02       6.025462E-02       0.000000E+00       0.000000E+00       0.000000E+00       12
+    13         1.000000E-01       0.000000E+00      -4.603211E-01       1.000000E-01                                             16
+
+1    EXAMPLE HA144F: FSW WITH FUSELAGE, 3 CONTROLS & 2 STOR HA144F          OCTOBER  18, 2016  MSC Nastran  5/30/13   PAGE    25
+      UNSYMMETRIC FLIGHT CONDITIONS, DOUBLET-LATTICE AERO                                                                           
+0     FULL-SPAN MODEL WITH DISPLACED CANARD                                                                  SUBCASE 2              
+                                                  INTERMEDIATE MATRIX ... UXIFV   
+
+
+                                                            COLUMN      1
+     1         1.732092E+00      -3.978428E-02       0.000000E+00      -4.603211E-01      -1.876913E-02      -1.315084E-02        6
+     7         6.025462E-02       1.000000E-01       0.000000E+00      -4.603211E-01       1.000000E-01       0.000000E+00       12
+    13        -1.000000E+00       0.000000E+00       0.000000E+00       0.000000E+00                                             16
+
+1    EXAMPLE HA144F: FSW WITH FUSELAGE, 3 CONTROLS & 2 STOR HA144F          OCTOBER  18, 2016  MSC Nastran  5/30/13   PAGE    26
+      UNSYMMETRIC FLIGHT CONDITIONS, DOUBLET-LATTICE AERO                                                                           
+0     FULL-SPAN MODEL WITH DISPLACED CANARD                                                                  SUBCASE 2              
+
+                               A E R O S T A T I C   D A T A   R E C O V E R Y   O U T P U T   T A B L E S
+                         CONFIGURATION = AEROSG2D     XY-SYMMETRY = ASYMMETRIC     XZ-SYMMETRY = ASYMMETRIC
+                                           MACH = 9.000000E-01                Q = 1.200000E+03
+                         CHORD = 1.0000E+01           SPAN = 4.0000E+01            AREA = 4.0000E+02
+
+          TRIM ALGORITHM USED: LINEAR TRIM SOLUTION WITHOUT REDUNDANT CONTROL SURFACES.                                           
+
+
+                                                      AEROELASTIC TRIM VARIABLES
+
+                                  ID     LABEL                 TYPE        TRIM STATUS      VALUE OF UX
+
+                                         INTERCEPT          RIGID BODY           FIXED      1.000000E+00
+                                 501     ANGLEA             RIGID BODY            FREE     -3.978428E-02  RADIANS         
+                                 502     PITCH              RIGID BODY           FIXED      0.000000E+00  NONDIMEN. RATE  
+                                 503     URDD3              RIGID BODY           FIXED     -1.000000E+00  LOAD FACTOR     
+                                 504     URDD5              RIGID BODY           FIXED      0.000000E+00  RAD/S/S PER G   
+                                 505     ELEV          CONTROL SURFACE            FREE     -4.603211E-01  RADIANS         
+                                 511     SIDES              RIGID BODY            FREE     -1.876913E-02  RADIANS         
+                                 512     YAW                RIGID BODY            FREE     -1.315084E-02  NONDIMEN. RATE  
+                                 513     ROLL               RIGID BODY            FREE      6.025462E-02  NONDIMEN. RATE  
+                                 514     URDD2              RIGID BODY           FIXED      0.000000E+00  LOAD FACTOR     
+                                 515     URDD4              RIGID BODY           FIXED      0.000000E+00  RAD/S/S PER G   
+                                 516     URDD6              RIGID BODY           FIXED      0.000000E+00  RAD/S/S PER G   
+                                 517     AILERON       CONTROL SURFACE           FIXED      1.000000E-01  RADIANS         
+                                 518     RUDDER        CONTROL SURFACE           FIXED      0.000000E+00  RADIANS         
+                                1505     ELEV_R        CONTROL SURFACE          LINKED     -4.603211E-01  RADIANS         
+                                1517     ALER_R        CONTROL SURFACE          LINKED      1.000000E-01  RADIANS         
+
+
+                                           CONTROL SURFACE POSITION AND HINGE MOMENT RESULTS
+
+                            ACTIVE LIMITS ARE FLAGGED WITH AN (A),  VIOLATED LIMITS ARE FLAGGED WITH A (V).
+
+                                                POSITION                                         HINGE MOMENT
+          CONTROL SURFACE      LOWER LIMIT       VALUE         UPPER LIMIT        LOWER LIMIT       VALUE         UPPER LIMIT
+              ELEV           -1.570796E+00   -4.603211E-01    1.570796E+00            N/A       -8.979353E+04         N/A      
+              AILERON        -1.570796E+00    1.000000E-01    1.570796E+00            N/A       -7.960860E+03         N/A      
+              RUDDER         -1.570796E+00    0.000000E+00    1.570796E+00            N/A        1.508810E+02         N/A      
+              ELEV_R         -1.570796E+00   -4.603211E-01    1.570796E+00            N/A       -9.172896E+04         N/A      
+              ALER_R         -1.570796E+00    1.000000E-01    1.570796E+00            N/A       -5.195491E+03         N/A      
+1    EXAMPLE HA144F: FSW WITH FUSELAGE, 3 CONTROLS & 2 STOR HA144F          OCTOBER  18, 2016  MSC Nastran  5/30/13   PAGE    27
+      UNSYMMETRIC FLIGHT CONDITIONS, DOUBLET-LATTICE AERO                                                                           
+0     FULL-SPAN MODEL WITH DISPLACED CANARD                                                                  SUBCASE 2              
+
+                               A E R O S T A T I C   D A T A   R E C O V E R Y   O U T P U T   T A B L E S
+                         CONFIGURATION = AEROSG2D     XY-SYMMETRY = ASYMMETRIC     XZ-SYMMETRY = ASYMMETRIC
+                                           MACH = 9.000000E-01                Q = 1.200000E+03
+                         CHORD = 1.0000E+01           SPAN = 4.0000E+01            AREA = 4.0000E+02
+
+
+                                        TRANSFORMATION FROM REFERENCE TO WIND AXES:
+                                ANGLE OF ATTACK   = -3.978428E-02 RADIANS (    -2.279472 DEGREES)
+                                ANGLE OF SIDESLIP = -1.876913E-02 RADIANS (    -1.075392 DEGREES)
+
+                                      { X }          [ -0.999033 -0.018768  0.039767 ]  { X }
+                                      { Y }          [ -0.018753  0.999824  0.000746 ]  { Y }
+                                      { Z }WIND =    [ -0.039774  0.000000 -0.999209 ]  { Z }REF
+
+
+    STRUCTURAL  MONITOR POINT TOTAL VEHICLE COEFFICIENTS:
+          AXIS         RIGID AIR  +  RESTRAINED INCR.  -  INERTIAL  +   RIGID-APPLIED + RESTRAINED INCR.  =  BALANCE
+          ----         ---------     ----------------     --------      -------------   ----------------     -------
+    BODY  CX          0.000000E+00     0.000000E+00     1.640429E-17     0.000000E+00     0.000000E+00    -1.640429E-17
+    WIND  CD          9.568965E-03     3.144918E-03    -1.333844E-03    -1.600613E-02     1.958405E-03     1.561251E-17
+ 
+    BODY  CY          3.485809E-04    -3.485822E-04     2.169416E-16     0.000000E+00     1.315274E-09    -1.004393E-17
+    WIND  CY-WIND     5.282646E-04    -2.896093E-04    -2.503804E-05    -3.004565E-04     3.676320E-05    -9.812030E-18
+ 
+    BODY  CZ          2.407916E-01     7.891953E-02    -3.354167E-02    -4.025001E-01     4.924726E-02    -5.551115E-17
+    WIND  CL         -2.406011E-01    -7.885708E-02     3.351512E-02     4.021816E-01    -4.920830E-02     0.000000E+00
+ 
+    BODY  CMX         3.054527E-03    -3.054527E-03     1.166318E-15     0.000000E+00     2.069293E-10    -6.115568E-19
+    WIND  CM-ROLL    -3.074608E-03     2.133793E-03     1.432809E-04     1.719371E-03    -6.352750E-04     2.168404E-19
+ 
+    BODY  CMY         1.849687E-03     4.827894E-02    -7.634307E-03    -9.161170E-02     3.384877E-02     2.081668E-17
+    WIND  CM-PITCH    1.792298E-03     4.832750E-02    -7.632962E-03    -9.159556E-02     3.384280E-02     2.081668E-17
+ 
+    BODY  CMZ         2.936923E-04    -2.936920E-04    -5.298699E-17     0.000000E+00    -3.216465E-10    -9.383256E-19
+    WIND  CM-YAW     -4.149501E-04     4.149497E-04     6.556156E-18     0.000000E+00     3.131616E-10     9.619070E-19
+ 
+
+
+    AERODYNAMIC MONITOR POINT TOTAL VEHICLE COEFFICIENTS:
+          AXIS         RIGID AIR  +  RESTRAINED INCR.  -  INERTIAL  +   RIGID-APPLIED + RESTRAINED INCR.  =  BALANCE
+          ----         ---------     ----------------     --------      -------------   ----------------     -------
+    BODY  CX          0.000000E+00     0.000000E+00           N/A              N/A        0.000000E+00     0.000000E+00
+    WIND  CD          9.568965E-03     3.144918E-03           N/A              N/A        1.958405E-03     1.467229E-02
+ 
+    BODY  CY          3.485809E-04    -3.485822E-04           N/A              N/A        1.315274E-09     2.305664E-16
+    WIND  CY-WIND     5.282646E-04    -2.896093E-04           N/A              N/A        3.676320E-05     2.754185E-04
+ 
+    BODY  CZ          2.407916E-01     7.891953E-02           N/A              N/A        4.924726E-02     3.689584E-01
+    WIND  CL         -2.406011E-01    -7.885708E-02           N/A              N/A       -4.920830E-02    -3.686664E-01
+ 
+    BODY  CMX         3.054527E-03    -3.054527E-03           N/A              N/A        2.069293E-10    -1.750179E-11
+    WIND  CM-ROLL    -3.074608E-03     2.133793E-03           N/A              N/A       -6.352749E-04    -1.576090E-03
+ 
+    BODY  CMY         1.849685E-03     4.827894E-02           N/A              N/A        3.384877E-02     8.397739E-02
+    WIND  CM-PITCH    1.792296E-03     4.832750E-02           N/A              N/A        3.384280E-02     8.396260E-02
+ 
+    BODY  CMZ         2.936924E-04    -2.936920E-04           N/A              N/A       -3.216465E-10     6.090201E-12
+    WIND  CM-YAW     -4.149501E-04     4.149497E-04           N/A              N/A        3.131616E-10    -5.389269E-12
+ 
+1    EXAMPLE HA144F: FSW WITH FUSELAGE, 3 CONTROLS & 2 STOR HA144F          OCTOBER  18, 2016  MSC Nastran  5/30/13   PAGE    28
+      UNSYMMETRIC FLIGHT CONDITIONS, DOUBLET-LATTICE AERO                                                                           
+0     FULL-SPAN MODEL WITH DISPLACED CANARD                                                                  SUBCASE 2              
+
+                              S T R U C T U R A L   M O N I T O R   P O I N T   I N T E G R A T E D   L O A D S
+                         CONFIGURATION = AEROSG2D     XY-SYMMETRY = ASYMMETRIC     XZ-SYMMETRY = ASYMMETRIC
+                                           MACH = 9.000000E-01                Q = 1.200000E+03
+
+        CONTROLLER STATE:
+        ANGLEA   =  -3.9784E-02        URDD3    =  -1.0000E+00        ELEV     =  -4.6032E-01        SIDES    =  -1.8769E-02
+        YAW      =  -1.3151E-02        ROLL     =   6.0255E-02        AILERON  =   1.0000E-01        ELEV_R   =  -4.6032E-01
+        ALER_R   =   1.0000E-01
+
+        MONITOR POINT NAME = AEROSG2D          COMPONENT =                   CLASS = COEFFICIENT               
+        LABEL = Full Vehicle Integrated Loads                           
+         CP =      100          X =  0.00000E+00          Y =  0.00000E+00          Z =  0.00000E+00          CD =      100
+
+          AXIS      RIGID AIR       ELASTIC REST.      INERTIAL      RIGID APPLIED    REST. APPLIED   
+          ----    -------------    -------------    -------------    -------------    -------------   
+           CX     0.000000E+00     0.000000E+00     7.874061E-12     0.000000E+00     0.000000E+00
+           CY     1.673188E+02    -6.313315E-04     1.041320E-10     0.000000E+00     6.313316E-04
+           CZ     1.155800E+05     1.534613E+05    -1.610000E+04    -1.932000E+05    -1.695613E+05
+           CMX    5.864692E+04    -3.973021E-03     2.239331E-08     0.000000E+00     3.973043E-03
+           CMY    8.878496E+03     2.406174E+05    -3.664467E+04    -4.397362E+05    -2.772621E+05
+           CMZ    5.638893E+03     6.175611E-03    -1.017350E-09     0.000000E+00    -6.175612E-03
+1    EXAMPLE HA144F: FSW WITH FUSELAGE, 3 CONTROLS & 2 STOR HA144F          OCTOBER  18, 2016  MSC Nastran  5/30/13   PAGE    29
+      UNSYMMETRIC FLIGHT CONDITIONS, DOUBLET-LATTICE AERO                                                                           
+0     FULL-SPAN MODEL WITH DISPLACED CANARD                                                                  SUBCASE 2              
+
+                              A E R O D Y N A M I C   M O N I T O R   P O I N T   I N T E G R A T E D   L O A D S
+                         CONFIGURATION = AEROSG2D     XY-SYMMETRY = ASYMMETRIC     XZ-SYMMETRY = ASYMMETRIC
+                                           MACH = 9.000000E-01                Q = 1.200000E+03
+
+        CONTROLLER STATE:
+        ANGLEA   =  -3.9784E-02        URDD3    =  -1.0000E+00        ELEV     =  -4.6032E-01        SIDES    =  -1.8769E-02
+        YAW      =  -1.3151E-02        ROLL     =   6.0255E-02        AILERON  =   1.0000E-01        ELEV_R   =  -4.6032E-01
+        ALER_R   =   1.0000E-01
+
+        MONITOR POINT NAME = AEROSG2D          COMPONENT =                   CLASS = COEFFICIENT               
+        LABEL = Full Vehicle Integrated Loads                           
+         CP =      100          X =  0.00000E+00          Y =  0.00000E+00          Z =  0.00000E+00          CD =      100
+
+          AXIS      RIGID AIR       ELASTIC REST.   REST. APPLIED   
+          ----    -------------    -------------    -------------   
+           CX     0.000000E+00     0.000000E+00     0.000000E+00
+           CY     1.673188E+02    -6.313315E-04     6.313316E-04
+           CZ     1.155800E+05     1.534613E+05     2.363869E+04
+           CMX    5.864691E+04    -4.309078E-03     3.973043E-03
+           CMY    8.878486E+03     2.406174E+05     1.624741E+05
+           CMZ    5.638893E+03     6.292544E-03    -6.175612E-03
+
+        MONITOR POINT NAME = AILERON           COMPONENT = 1100              CLASS = HINGE MOMENT              
+        LABEL = AILERON  - Control Surface Hinge Moment                 
+         CP =      110          X =  0.00000E+00          Y =  0.00000E+00          Z =  0.00000E+00          CD =      110
+
+          AXIS      RIGID AIR       ELASTIC REST.   REST. APPLIED   
+          ----    -------------    -------------    -------------   
+           CMY   -7.315017E+03    -7.687619E+03    -2.732410E+02
+
+        MONITOR POINT NAME = ALER_R            COMPONENT = 2100              CLASS = HINGE MOMENT              
+        LABEL = ALER_R   - Control Surface Hinge Moment                 
+         CP =      210          X =  0.00000E+00          Y =  0.00000E+00          Z =  0.00000E+00          CD =      210
+
+          AXIS      RIGID AIR       ELASTIC REST.   REST. APPLIED   
+          ----    -------------    -------------    -------------   
+           CMY   -5.955441E+03    -5.468732E+03     2.732410E+02
+
+        MONITOR POINT NAME = ELEV              COMPONENT = 1000              CLASS = HINGE MOMENT              
+        LABEL = ELEV     - Control Surface Hinge Moment                 
+         CP =       90          X =  0.00000E+00          Y =  0.00000E+00          Z =  0.00000E+00          CD =       90
+
+          AXIS      RIGID AIR       ELASTIC REST.   REST. APPLIED   
+          ----    -------------    -------------    -------------   
+           CMY   -8.988472E+04    -8.997515E+04     1.816266E+02
+
+        MONITOR POINT NAME = ELEV_R            COMPONENT = 2000              CLASS = HINGE MOMENT              
+        LABEL = ELEV_R   - Control Surface Hinge Moment                 
+         CP =       90          X =  0.00000E+00          Y =  0.00000E+00          Z =  0.00000E+00          CD =       90
+
+          AXIS      RIGID AIR       ELASTIC REST.   REST. APPLIED   
+          ----    -------------    -------------    -------------   
+           CMY   -9.186901E+04    -9.191059E+04     1.816266E+02
+
+        MONITOR POINT NAME = RUDDER            COMPONENT = 3000              CLASS = HINGE MOMENT              
+        LABEL = RUDDER   - Control Surface Hinge Moment                 
+         CP =      301          X =  0.00000E+00          Y =  0.00000E+00          Z =  0.00000E+00          CD =      301
+
+          AXIS      RIGID AIR       ELASTIC REST.   REST. APPLIED   
+          ----    -------------    -------------    -------------   
+           CMY    1.571644E+02     1.508810E+02     5.133679E-06
+
+        MONCNCM NAME =       ALL               INT GROUP ID =     1          CLASS = STRIP                     
+        LABEL = ALL STRIPS                                              
+         CP =        1          AERODYNAMIC COORDINATE SYSTEM 
+
+                                                                               FORCE                    MOMENT
+ STRP     YS          ZS        XREF          REFC         REFS         RIGID       ELASTIC      RIGID       ELASTIC   
+ ____  __________  __________  __________  ___________  ___________  ___________  ___________  ___________  ___________
+    1  -2.250E+00   1.500E+00   0.000E+00   1.0000E+01   5.0001E+00  -6.8996E-01  -7.0215E-01  -9.0688E+00  -9.3043E-02
+    2  -3.750E+00   0.000E+00   1.283E+01   1.0000E+01   2.5000E+01   1.2751E-01   3.7316E-02  -7.4520E+01   1.1711E-02
+    3  -3.750E+00   1.500E+00   0.000E+00   1.0000E+01   2.5000E+01  -6.4959E-01  -6.6126E-01  -8.4817E+00  -8.7338E-02
+    4  -6.250E+00   0.000E+00   1.139E+01   1.0000E+01   2.5000E+01  -1.8475E-01  -2.8428E-01  -7.4411E+01  -4.5293E-02
+    5  -8.750E+00   0.000E+00   9.948E+00   1.0000E+01   2.5000E+01  -2.4916E-01  -3.5256E-01  -7.0816E+01  -5.1722E-02
+    6  -1.000E+01  -5.000E-01   1.048E+01   5.0000E+00   5.0000E+00   7.6381E-02   7.4990E-02   1.8919E+01   4.1984E-03
+    7  -1.125E+01   2.500E-01   8.505E+00   1.0000E+01   2.5495E+01  -1.6728E-01  -2.7334E-01  -5.7755E+01  -8.2730E-02
+    8  -1.375E+01   7.500E-01   7.061E+00   1.0000E+01   2.5495E+01  -1.5638E-01  -2.5474E-01  -5.0365E+01  -7.8313E-02
+    9  -1.625E+01   1.250E+00   5.618E+00   1.0000E+01   2.5495E+01  -1.3760E-01  -2.2125E-01  -4.0789E+01  -6.7876E-02
+   10  -1.875E+01   1.750E+00   4.175E+00   1.0000E+01   2.5495E+01  -9.9654E-02  -1.5849E-01  -2.7657E+01  -5.1015E-02
+   11   0.000E+00   3.750E+00   1.717E+01   1.0000E+01   2.5000E+01  -9.0037E-03  -1.8042E-03   3.7823E-06   6.9092E-03
+   12   0.000E+00   6.250E+00   1.861E+01   1.0000E+01   2.5000E+01  -2.1243E-02  -1.5547E-02   2.5611E-06   3.2092E-03
+   13   0.000E+00   8.750E+00   2.005E+01   1.0000E+01   2.5000E+01  -2.5689E-02  -2.2063E-02   1.4412E-06  -1.0103E-04
+   14   2.250E+00   1.500E+00   0.000E+00   1.0000E+01   5.0001E+00  -6.7257E-01  -6.8379E-01  -9.0688E+00  -9.3757E-02
+   15   3.750E+00   0.000E+00   1.283E+01   1.0000E+01   2.5000E+01   1.5656E-01   8.3690E-02  -7.4520E+01   2.7994E-02
+   16   3.750E+00   1.500E+00   0.000E+00   1.0000E+01   2.5000E+01  -6.2776E-01  -6.3837E-01  -8.4817E+00  -8.7384E-02
+   17   6.250E+00   0.000E+00   1.139E+01   1.0000E+01   2.5000E+01  -1.3447E-01  -2.1366E-01  -7.4411E+01  -1.8133E-02
+   18   8.750E+00   0.000E+00   9.948E+00   1.0000E+01   2.5000E+01  -2.0593E-01  -2.8628E-01  -7.0815E+01  -3.3397E-03
+   19   1.000E+01  -5.000E-01   1.048E+01   5.0000E+00   5.0000E+00  -2.9556E-02  -4.1143E-02  -1.8919E+01  -1.7746E-02
+   20   1.125E+01   2.500E-01   8.505E+00   1.0000E+01   2.5495E+01  -2.5394E-01  -3.2789E-01  -5.7755E+01   4.9100E-02
+   21   1.375E+01   7.500E-01   7.061E+00   1.0000E+01   2.5495E+01  -2.3248E-01  -2.9930E-01  -5.0365E+01   6.4359E-02
+   22   1.625E+01   1.250E+00   5.618E+00   1.0000E+01   2.5495E+01  -1.8602E-01  -2.4161E-01  -4.0789E+01   6.7285E-02
+   23   1.875E+01   1.750E+00   4.175E+00   1.0000E+01   2.5495E+01  -1.2167E-01  -1.6009E-01  -2.7657E+01   5.5936E-02
+1    EXAMPLE HA144F: FSW WITH FUSELAGE, 3 CONTROLS & 2 STOR HA144F          OCTOBER  18, 2016  MSC Nastran  5/30/13   PAGE    30
+      UNSYMMETRIC FLIGHT CONDITIONS, DOUBLET-LATTICE AERO                                                                           
+0     FULL-SPAN MODEL WITH DISPLACED CANARD                                                                  SUBCASE 2              
+ *** USER INFORMATION MESSAGE 7310 (VECPRN)
+     ORIGIN OF SUPERELEMENT BASIC COORDINATE SYSTEM WILL BE USED AS REFERENCE LOCATION.
+     RESULTANTS ABOUT ORIGIN OF SUPERELEMENT BASIC COORDINATE SYSTEM IN SUPERELEMENT BASIC SYSTEM COORDINATES.
+0                                                  TRIMMED  OLOAD RESULTANT 
+  SUBCASE/
+  DAREA ID        T1             T2             T3             R1             R2             R3
+0        1   7.8740616E-12  2.2191611E-12  1.5120349E-11 -1.7746485E-11 -4.9112714E-10  5.7126921E-11
+0        2   7.8740616E-12  7.9580786E-13 -2.6261660E-11  1.7280399E-11  4.6929927E-10  2.5465852E-11
+1    EXAMPLE HA144F: FSW WITH FUSELAGE, 3 CONTROLS & 2 STOR HA144F          OCTOBER  18, 2016  MSC Nastran  5/30/13   PAGE    31
+      UNSYMMETRIC FLIGHT CONDITIONS, DOUBLET-LATTICE AERO                                                                           
+0     FULL-SPAN MODEL WITH DISPLACED CANARD                                                                  SUBCASE 2              
+ * * * *  D B D I C T   P R I N T  * * * *      SUBDMAP = PRTSUM  ,  DMAP STATEMENT NO.     41
+
+
+
+0                                   * * * *  A N A L Y S I S  S U M M A R Y  T A B L E  * * * *
+0 SEID  PEID PROJ VERS APRCH      SEMG SEMR SEKR SELG SELR MODES DYNRED SOLLIN PVALID SOLNL LOOPID DESIGN CYCLE SENSITIVITY
+ --------------------------------------------------------------------------------------------------------------------------
+     0     0    1    2 '        '    T    T    T    T    T     F      F      T      0     F     -1            0           F
+0SEID = SUPERELEMENT ID.
+ PEID = PRIMARY SUPERELEMENT ID OF IMAGE SUPERELEMENT.
+ PROJ = PROJECT ID NUMBER.
+ VERS = VERSION ID.
+ APRCH = BLANK FOR STRUCTURAL ANALYSIS.  HEAT FOR HEAT TRANSFER ANALYSIS.
+ SEMG = STIFFNESS AND MASS MATRIX GENERATION STEP.
+ SEMR = MASS MATRIX REDUCTION STEP (INCLUDES EIGENVALUE SOLUTION FOR MODES).
+ SEKR = STIFFNESS MATRIX REDUCTION STEP.
+ SELG = LOAD MATRIX GENERATION STEP.
+ SELR = LOAD MATRIX REDUCTION STEP. 
+ MODES = T (TRUE) IF NORMAL MODES OR BUCKLING MODES CALCULATED.
+ DYNRED = T (TRUE) MEANS GENERALIZED DYNAMIC AND/OR COMPONENT MODE REDUCTION PERFORMED.
+ SOLLIN = T (TRUE) IF LINEAR SOLUTION EXISTS IN DATABASE.
+ PVALID = P-DISTRIBUTION ID OF P-VALUE FOR P-ELEMENTS
+ LOOPID = THE LAST LOOPID VALUE USED IN THE NONLINEAR ANALYSIS.  USEFUL FOR RESTARTS.
+ SOLNL = T (TRUE) IF NONLINEAR SOLUTION EXISTS IN DATABASE.
+ DESIGN CYCLE = THE LAST DESIGN CYCLE (ONLY VALID IN OPTIMIZATION).
+ SENSITIVITY = SENSITIVITY MATRIX GENERATION FLAG.
+ 
+ No PARAM values were set in the Control File.
+ 
+1                                        * * * END OF JOB * * *
+ 
+ 
+ No Symbolic Replacement variables or values were specified.
+

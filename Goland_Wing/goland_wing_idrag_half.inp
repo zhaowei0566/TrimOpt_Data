@@ -1,0 +1,25 @@
+idrag input file
+goland_wing
+0 input mode
+1 write flag
+1 symmetry flag
+0.093162386504201 cl_design
+0 cm_flag
+0.0161 cm_design
+2.58 x cg position
+0.25 center of pressure for airfoil sections
+240 reference area
+6 reference chord
+2 number of panels
+0 0 0   x,y,z for 4 corners of panel 1
+0 20 0
+6 20 0
+6 0 0
+40 number of vortices for panel 1
+0 vortex spacing for panel 1
+16 0 0.3 x,y,z for 4 corners of panel 2
+16 6 0.3
+19 6 0.3
+19 0 0.3
+12 number of vortices for panel 2
+0 vortex spacing for panel 2
